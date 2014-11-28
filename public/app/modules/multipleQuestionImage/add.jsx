@@ -19,8 +19,6 @@ require([], function() {
     db.saveDoc(data, {
       success: function(resp) {
         if (resp.ok === true) {
-
-
           $.ajax({
             type: "PUT",
             url: "/" + databaseName + "/" + resp.id + "/" + $("#image").val() + "?rev=" + resp._rev,

@@ -5,3 +5,7 @@ section.body {
 .navbar {
     border-radius: 0px;
 }
+
+.navbar-brand {
+    width: 150px;
+}

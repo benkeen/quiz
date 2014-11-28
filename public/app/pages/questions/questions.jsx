@@ -1,7 +1,21 @@
-require([], function() {
+define([
+  "react",
+  "crossroads",
+  "text!questionsTemplate"
+], function(React, crossroads, questionsTemplate) {
+
+
+  var _init = function() {
+    crossroads.addRoute("questions", _loadPage);
+  };
+
+  var _loadPage = function() {
+    $("#content").html(questionsTemplate);
+  };
 
   var QuestionTable = React.createClass({
     displayName: 'QuestionTable',
+
     getQuestions: function () {
       $.ajax({
         url: this.props.url,
@@ -44,10 +58,13 @@ require([], function() {
     }
   });
 
+  //React.render(
+  //  <QuestionTable url="http://localhost:8000/questions/_all_docs?include_docs=true" />,
+  //  document.getElementById('list')
+  //);
 
-  React.render(
-    <QuestionTable url="http://localhost:8000/questions/_all_docs?include_docs=true" />,
-    document.getElementById('list')
-  );
 
+  return {
+    init: _init
+  };
 });

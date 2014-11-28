@@ -4,6 +4,8 @@ define([
 
   var _init = function() {
     $("#header").html(headerTemplate);
+
+
   };
 
   return {
