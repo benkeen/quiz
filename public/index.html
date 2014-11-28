@@ -5,13 +5,19 @@
   <link rel="stylesheet" href="css/bootswatch.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
   <script src="libs/jquery.js"></script>
+  <script src="libs/lodash.js"></script>
   <script src="js/jquery.couch.js"></script>
-  <script src="http://fb.me/react-0.12.1.js"></script>
-  <script src="http://fb.me/JSXTransformer-0.12.1.js"></script>
+  <script src="js/react.min.js"></script>
+  <script src="js/JSXTransformer.js"></script>
 </head>
 <body>
 
+<div id="header"></div>
 <div id="content"></div>
+
+<script src="libs/require.js"></script>
+<script src="app/require.config.js"></script>
+<script>require(["start"], function() { });</script>
 
 </body>
 </html>

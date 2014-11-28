@@ -1,3 +1,8 @@
-require([], function() {
+define([
+  "header"
+], function(header) {
+
+
+  header.init();
 
 });
