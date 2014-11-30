@@ -1,0 +1,45 @@
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="http://localhost:1234/libs/jquery.couch.js"></script>
+  <script src="data.js"></script>
+  <script>
+  $(function() {
+    $.couch.urlPrefix = "http://localhost:8000";
+    var index = 0;
+
+    var update = function() {
+      var remainingItems = data.length - index;
+      $("#title").html(remainingItems + " records to add");
+
+      $.couch.db("bird_species").saveDoc(data[index], {
+        success: function() {
+          index++;
+          update();
+        },
+        error: function(status) {
+          $("#title").html("Error!", arguments);
+          return;
+        }
+      });
+    };
+
+    $("#start").on("click", function() {
+      $("#start").attr("disabled", "disabled");
+      update();
+    });
+  });
+  </script>
+</head>
+<body>
+
+<h1 id="title">Click the button below to import the data.</h1>
+
+<p>
+  This is a super low-brow way to bulk import the docs. Takes a painful minute or so to run.
+</p>
+
+<input type="button" value="Import" id="start"/>
+
+</body>
+</html>
