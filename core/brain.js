@@ -3,11 +3,31 @@
  */
 define([
   "constants",
-], function(C) {
+  "crossroads",
+  "hasher"
+], function(C, crossroads, hasher) {
   "use strict";
 
   // components can be pages or modules. Anything that wants to tie into the pub/sub system
   var components = {};
+
+
+  // starts the whole app
+  var start = function() {
+    function parseHash(newHash, oldHash) {
+      crossroads.parse(newHash);
+    }
+
+    hasher.initialized.add(parseHash);
+    hasher.changed.add(parseHash);
+    hasher.init();
+
+    var initialPath = document.location.pathname;
+    if (initialPath === '/') {
+      initialPath = "";
+    }
+    hasher.setHash(initialPath);
+  };
 
   var register = function(rawComponents) {
     _.each(rawComponents, function(component) {
@@ -33,7 +53,7 @@ define([
     });
   };
 
-  var init = function() {
+  var initComponents = function() {
     _.each(components, function(val, key) {
       components[key].init();
     });
@@ -68,8 +88,9 @@ define([
 
 
   return {
+    start: start,
     register: register,
-    init: init,
+    initComponents: initComponents,
     publish: publish,
     subscribe: subscribe
   };

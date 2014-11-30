@@ -1,23 +1,30 @@
 define([
   "constants",
+  "brain",
   "crossroads",
   "text!aboutTemplate"
-], function(C, crossroads, aboutTemplate) {
+], function(C, brain, crossroads, aboutTemplate) {
   "use strict";
 
+  var componentID = "aboutPage";
 
   var init = function() {
     crossroads.addRoute("", loadPage);
   };
 
   var loadPage = function() {
-    console.log("not here?", aboutTemplate);
+
+    // notify anyone that's interested that this component just loaded (be nice to centralize...)
+    console.log("publishing...");
+    brain.publish(componentID, C.EVENTS.PAGE.LOAD, { page: componentID });
+
+    // set the page
     $("#content").html(aboutTemplate);
   };
 
 
   return {
-    name: "aboutPage",
+    name: componentID,
     type: C.COMPONENT_TYPES.PAGE,
     init: init
   }

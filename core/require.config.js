@@ -25,7 +25,6 @@ requirejs.config({
 
     // modules
     header: "modules/header/header",
-    headerTemplate: "modules/header/headerTemplate.html",
     multipleQuestionImage: "modules/multipleQuestionImage/add"
   },
 
