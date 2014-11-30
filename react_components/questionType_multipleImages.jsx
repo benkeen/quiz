@@ -1,5 +1,5 @@
-require([
-  "../../libs/react"
+define([
+  "../libs/react"
 ], function(React) {
   "use strict";
 
@@ -76,10 +76,6 @@ require([
       );
     }
   });
-  //
-  //React.render(
-  //  <AddMultipleQuestionImage />,
-  //  document.getElementById('content')
-  //);
 
+  return AddMultipleQuestionImage;
 });

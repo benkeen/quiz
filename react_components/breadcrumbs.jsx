@@ -1,5 +1,5 @@
 define([
-  "../../libs/react"
+  "../libs/react"
 ], function(React) {
 
 

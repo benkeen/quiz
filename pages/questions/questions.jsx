@@ -1,29 +1,42 @@
 define([
   "constants",
+  "brain",
   "react",
   "crossroads",
   "text!questionsTemplate",
   "jsx!multipleQuestionImage"
-], function(C, React, crossroads, questionsTemplate, multipleQuestionImage) {
+], function(C, brain, React, crossroads, questionsTemplate, AddMultipleQuestionImage) {
 
+  var componentID = "questionsPage";
 
   var init = function() {
-    crossroads.addRoute("questions", _loadPage);
-    crossroads.addRoute("questions/add/{type}", _addQuestionPage);
+    crossroads.addRoute("questions", loadPage);
+    crossroads.addRoute("questions/add/{type}", addQuestionPage);
   };
 
-  var _loadPage = function(opts) {
+  var loadPage = function(opts) {
+    publishPageLoaded();
 
-    console.log("erm...");
     // first, always register the main page template
     $("#content").html(questionsTemplate);
   };
 
-  var _addQuestionPage = function () {
-    console.log("erm.111..");
+  var addQuestionPage = function () {
+    publishPageLoaded();
+
+    React.render(
+      <AddMultipleQuestionImage />,
+      document.getElementById('content')
+    );
   };
 
-  var QuestionTable = React.createClass({
+
+  var publishPageLoaded = function() {
+    brain.publish(componentID, C.EVENTS.PAGE.LOAD, { page: componentID });
+  };
+
+
+/*  var QuestionTable = React.createClass({
     displayName: 'QuestionTable',
 
     getQuestions: function () {
@@ -67,6 +80,7 @@ define([
       );
     }
   });
+*/
 
   //React.render(
   //  <QuestionTable url="http://localhost:8000/questions/_all_docs?include_docs=true" />,
@@ -75,7 +89,7 @@ define([
 
 
   return {
-    name: "questionsPage",
+    name: componentID,
     type: C.COMPONENT_TYPES.PAGE,
     init: init
   };

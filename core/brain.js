@@ -59,11 +59,11 @@ define([
     });
   };
 
-  var getComponentType = function(type) {
-    return _.filter(components, function(val, key) {
-      return components[key].type === type;
-    });
-  };
+  //var getComponentType = function(type) {
+  //  return _.filter(components, function(val, key) {
+  //    return components[key].type === type;
+  //  });
+  //};
 
   var publish = function(componentID, message, data) {
     if (C.DEBUG) {
@@ -82,8 +82,8 @@ define([
     });
   };
 
-  var subscribe = function(id, subscriptions) {
-    components[id].subscriptions = subscriptions;
+  var subscribe = function(id, msg, callback) {
+    components[id].subscriptions[msg] = callback;
   };
 
 
