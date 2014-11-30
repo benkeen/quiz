@@ -20,3 +20,4 @@ app.use(function (req, res, next) {
 // static file serve
 app.use(express.static(__dirname));
 app.listen(1234);
+console.log("Listening on port 1234");

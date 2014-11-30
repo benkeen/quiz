@@ -1,4 +1,6 @@
-require([], function() {
+require([
+  "../../libs/react"
+], function(React) {
   "use strict";
 
 /*
@@ -50,24 +52,26 @@ require([], function() {
   var AddMultipleQuestionImage = React.createClass({
     render: function() {
       return (
-        <div class="row">
-          <div class="col-lg-2">Question</div>
-          <div class="col-lg-10">
-            <input type="text" class="form-group" />
+        <div>
+          <div class="row">
+            <div class="col-lg-2">Question</div>
+            <div class="col-lg-10">
+              <input type="text" class="form-group" />
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-lg-2">Image</div>
-          <div class="col-lg-10">
-            <input type="text" class="form-group" />
+          <div class="row">
+            <div class="col-lg-2">Image</div>
+            <div class="col-lg-10">
+              <input type="text" class="form-group" />
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-lg-2">Num</div>
-          <div class="col-lg-2">Correct</div>
-          <div class="col-lg-2">Answer</div>
+          <div class="row">
+            <div class="col-lg-2">Num</div>
+            <div class="col-lg-2">Correct</div>
+            <div class="col-lg-2">Answer</div>
+          </div>
         </div>
       );
     }
@@ -77,6 +81,5 @@ require([], function() {
     <AddMultipleQuestionImage />,
     document.getElementById('content')
   );
-
 
 });

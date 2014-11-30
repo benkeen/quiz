@@ -1,5 +1,5 @@
 requirejs.config({
-  baseUrl: '',
+  baseUrl: '/',
   paths: {
 
     // libraries
@@ -12,19 +12,20 @@ requirejs.config({
     react: "libs/react",
 
     // core stuff
-    start: "app/start",
+    start: "core/start",
     mediator: "core/mediator",
     constants: "core/constants",
 
     // pages
-    aboutPage: "app/pages/about/about",
-    aboutTemplate: "app/pages/about/aboutTemplate.html",
-    questionsPage: "app/pages/questions/questions",
-    questionsTemplate: "app/pages/questions/questionsTemplate.html",
+    aboutPage: "pages/about/about",
+    aboutTemplate: "pages/about/aboutTemplate.html",
+    questionsPage: "pages/questions/questions",
+    questionsTemplate: "pages/questions/questionsTemplate.html",
 
     // modules
-    header: "app/modules/header/header",
-    headerTemplate: "app/modules/header/headerTemplate.html"
+    header: "modules/header/header",
+    headerTemplate: "modules/header/headerTemplate.html",
+    multipleQuestionImage: "modules/multipleQuestionImage/add"
   },
 
   jsx: {

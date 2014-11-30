@@ -1,16 +1,27 @@
 define([
-  "react",
+  "../../libs/react",
   "crossroads",
-  "text!questionsTemplate"
-], function(React, crossroads, questionsTemplate) {
+  "text!questionsTemplate",
+  "jsx!multipleQuestionImage"
+], function(React, crossroads, questionsTemplate, multipleQuestionImage) {
 
 
   var _init = function() {
     crossroads.addRoute("questions", _loadPage);
+    crossroads.addRoute("questions/add/{type}", _addQuestionPage);
   };
 
-  var _loadPage = function() {
+  var _loadPage = function(opts) {
+
+    console.log(opts);
+
+    // first, always register the main page template
     $("#content").html(questionsTemplate);
+
+  };
+
+  var _addQuestionPage = function () {
+
   };
 
   var QuestionTable = React.createClass({
