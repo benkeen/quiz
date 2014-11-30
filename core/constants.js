@@ -10,5 +10,10 @@ define([], function() {
     GITHUB_URL:   "https://github.com/benkeen/quiz"
   };
 
+  _CONSTANTS.COMPONENT_TYPES = {
+    MODULE: 'module',
+    PAGE: 'page'
+  };
+
   return _CONSTANTS;
 });

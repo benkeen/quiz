@@ -2,13 +2,12 @@ define([
   "text!headerTemplate"
 ], function(headerTemplate) {
 
-  var _init = function() {
+  var init = function() {
     $("#header").html(headerTemplate);
-
-
   };
 
   return {
-    init: _init
+    name: "header",
+    init: init
   };
 });

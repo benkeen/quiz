@@ -6,18 +6,15 @@ define([
 ], function(React, crossroads, questionsTemplate, multipleQuestionImage) {
 
 
-  var _init = function() {
+  var init = function() {
     crossroads.addRoute("questions", _loadPage);
     crossroads.addRoute("questions/add/{type}", _addQuestionPage);
   };
 
   var _loadPage = function(opts) {
 
-    console.log(opts);
-
     // first, always register the main page template
     $("#content").html(questionsTemplate);
-
   };
 
   var _addQuestionPage = function () {
@@ -76,6 +73,7 @@ define([
 
 
   return {
-    init: _init
+    name: "questionsPage",
+    init: init
   };
 });

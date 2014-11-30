@@ -2,6 +2,7 @@ define([
   "crossroads",
   "text!aboutTemplate"
 ], function(crossroads, aboutTemplate) {
+  "use strict";
 
   var _init = function() {
     crossroads.addRoute("/", _loadPage);
@@ -12,6 +13,7 @@ define([
   };
 
   return {
+    name: "aboutPage",
     init: _init
   }
 });

@@ -13,6 +13,8 @@ requirejs.config({
 
     // core stuff
     start: "core/start",
+    brain: "core/brain",
+    generalEvents: "core/generalEvents",
     mediator: "core/mediator",
     constants: "core/constants",
 
