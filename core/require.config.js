@@ -14,8 +14,12 @@ requirejs.config({
     // core stuff
     start: "core/start",
     brain: "core/brain",
+    pageHelper: "core/pageHelper",
     generalEvents: "core/generalEvents",
     constants: "core/constants",
+
+    // primary top-level templates
+    layoutTemplate: "templates/layout.html",
 
     // pages
     aboutPage: "pages/about/about",
@@ -25,7 +29,7 @@ requirejs.config({
 
     // React components
     header: "react_components/header",
-    breadcrumbs: "react_components/header",
+    breadcrumbs: "react_components/breadcrumbs",
     multipleQuestionImage: "react_components/questionType_multipleImages"
   },
 

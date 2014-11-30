@@ -86,7 +86,6 @@ define([
     components[id].subscriptions[msg] = callback;
   };
 
-
   return {
     start: start,
     register: register,

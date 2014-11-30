@@ -1,9 +1,10 @@
 define([
   "constants",
   "brain",
+  "jsx!pageHelper",
   "crossroads",
   "text!aboutTemplate"
-], function(C, brain, crossroads, aboutTemplate) {
+], function(C, brain, pageHelper, crossroads, aboutTemplate) {
   "use strict";
 
   var componentID = "aboutPage";
@@ -18,8 +19,11 @@ define([
     // notify anyone that's interested that this component just loaded (be nice to centralize...)
     brain.publish(componentID, C.EVENTS.PAGE.LOAD, { page: componentID });
 
-    // set the page
-    $("#content").html(aboutTemplate);
+    // set the page template
+    pageHelper.renderPage({
+      breadcrumbs: [{ label: "About" }],
+      pageContent: aboutTemplate
+    });
   };
 
 

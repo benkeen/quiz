@@ -45,8 +45,6 @@ define([
       var newPageEl = this.refs[this.state.page + "Link"].getDOMNode();
       $(newPageEl).addClass("active");
 
-      console.log("state!", this.state);
-
       this.state.previousPage = lastPage;
     },
 
