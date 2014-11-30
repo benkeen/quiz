@@ -64,6 +64,7 @@ define([
               <li data-page="aboutPage" ref="aboutPageLink"><a href="#about">About</a></li>
               <li data-page="takeQuizPage" ref="takeQuizPageLink"><a href="#quiz">Take a Quiz</a></li>
               <li data-page="questionsPage" ref="questionsPageLink"><a href="#questions">Questions</a></li>
+              <li data-page="taxonomyPage" ref="taxonomyPageLink"><a href="#questions">Taxonomy</a></li>
               <li data-parent-page="contributePage" className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">Contribute
                   <b className="caret"></b>

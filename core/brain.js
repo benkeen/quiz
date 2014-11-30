@@ -22,7 +22,7 @@ define([
     hasher.changed.add(parseHash);
     hasher.init();
 
-    var initialPath = document.location.pathname;
+    var initialPath = window.location.hash.replace(/^#\/?/, "");
     if (initialPath === '/') {
       initialPath = "";
     }

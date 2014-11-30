@@ -11,9 +11,7 @@ define([
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
-      if (_.isEqual(nextProps, this.props)) {
-        return false;
-      }
+      return (!_.isEqual(nextProps, this.props));
     },
 
     componentWillUpdate: function () {

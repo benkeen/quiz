@@ -50,7 +50,24 @@ define([
     });
 */
 
-  var AddMultipleQuestionImage = React.createClass({
+
+  var MultipleChoice = React.createClass({
+    getDefaultProps: function() {
+      return {
+        id: null
+      }
+    },
+
+    getInitialState: function() {
+      return {
+        status: "new"
+      }
+    },
+
+    createNewBlankQuestion: function () {
+
+    },
+
     render: function() {
       return (
         <div>
@@ -58,6 +75,19 @@ define([
             This question type is of the form: single image, with multiple responses - only of which is correct.
           </p>
 
+          <h3>Step 1: Upload image</h3>
+
+          <FileUpload />
+        </div>
+      );
+    }
+  });
+
+
+  var Step2 = React.createClass({
+    render: function() {
+      return (
+        <div>
           <div class="row">
             <div class="col-lg-2">Question</div>
             <div class="col-lg-10">
@@ -82,5 +112,5 @@ define([
     }
   });
 
-  return AddMultipleQuestionImage;
+  return MultipleChoice;
 });

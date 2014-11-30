@@ -30,7 +30,7 @@ requirejs.config({
     // React components
     Header: "react_components/Header",
     Breadcrumbs: "react_components/Breadcrumbs",
-    MultipleQuestionImage: "react_components/QuestionType_multipleImages",
+    MultipleChoiceQuestion: "react_components/QuestionType_multipleChoice",
     FileUpload: "react_components/FileUpload"
   },
 

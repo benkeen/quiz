@@ -5,8 +5,8 @@ define([
   "react",
   "crossroads",
   "text!questionsTemplate",
-  "jsx!MultipleQuestionImage"
-], function(C, brain, pageHelper, React, crossroads, questionsTemplate, MultipleQuestionImage) {
+  "jsx!MultipleChoiceQuestion"
+], function(C, brain, pageHelper, React, crossroads, questionsTemplate, MultipleChoiceQuestion) {
 
   var componentID = "questionsPage";
 
@@ -38,7 +38,7 @@ define([
     });
 
     React.render(
-      <MultipleQuestionImage />,
+      <MultipleChoiceQuestion />,
       document.getElementById('pageContent')
     );
   };
