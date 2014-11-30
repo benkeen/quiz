@@ -10,15 +10,11 @@ define([
 ], function(brain, crossroads, hasher, generateEvents, header, aboutPage, questionsPage) {
   "use strict";
 
-  // set up all pages. These guys register their own URL handlers
-  brain.registerPages([aboutPage, questionsPage]);
+  // register all pages and modules. Right now pages register their own URL handlers
+  brain.register([aboutPage, questionsPage, header]);
 
-  // initialize the generic page components
-  brain.registerModules([header]);
-
-  // now initialize anything that needs initializing
-  brain.initPages();
-  brain.initModules();
+  // initialize anything that needs initializing
+  brain.init();
 
 
   // Routing stuff. To be moved to brain
@@ -31,6 +27,9 @@ define([
   hasher.changed.add(parseHash);
   hasher.init();
 
-
-  hasher.setHash(document.location.pathname);
+  var initialPath = document.location.pathname;
+  if (initialPath === '/') {
+    initialPath = "";
+  }
+  hasher.setHash(initialPath);
 });

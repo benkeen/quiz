@@ -1,19 +1,25 @@
 define([], function() {
 
-  var _CONSTANTS = {};
+  var CONSTANTS = {};
 
-  _CONSTANTS.DEBUG = true;
+  CONSTANTS.DEBUG = true;
 
-  _CONSTANTS.CORE = {
+  CONSTANTS.CORE = {
     APP_VERSION:  "0.0.1",
     RELEASE_DATE: "",
     GITHUB_URL:   "https://github.com/benkeen/quiz"
   };
 
-  _CONSTANTS.COMPONENT_TYPES = {
+  CONSTANTS.COMPONENT_TYPES = {
     MODULE: 'module',
     PAGE: 'page'
   };
 
-  return _CONSTANTS;
+  CONSTANTS.EVENTS = {
+    PAGE: {
+      LOAD: 'event-page-load'
+    }
+  };
+
+  return CONSTANTS;
 });

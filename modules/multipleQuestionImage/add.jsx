@@ -76,10 +76,10 @@ require([
       );
     }
   });
-
-  React.render(
-    <AddMultipleQuestionImage />,
-    document.getElementById('content')
-  );
+  //
+  //React.render(
+  //  <AddMultipleQuestionImage />,
+  //  document.getElementById('content')
+  //);
 
 });

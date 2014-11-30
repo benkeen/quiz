@@ -1,9 +1,10 @@
 define([
-  "../../libs/react",
+  "constants",
+  "react",
   "crossroads",
   "text!questionsTemplate",
   "jsx!multipleQuestionImage"
-], function(React, crossroads, questionsTemplate, multipleQuestionImage) {
+], function(C, React, crossroads, questionsTemplate, multipleQuestionImage) {
 
 
   var init = function() {
@@ -13,12 +14,13 @@ define([
 
   var _loadPage = function(opts) {
 
+    console.log("erm...");
     // first, always register the main page template
     $("#content").html(questionsTemplate);
   };
 
   var _addQuestionPage = function () {
-
+    console.log("erm.111..");
   };
 
   var QuestionTable = React.createClass({
@@ -74,6 +76,7 @@ define([
 
   return {
     name: "questionsPage",
+    type: C.COMPONENT_TYPES.PAGE,
     init: init
   };
 });

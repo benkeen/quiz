@@ -3,73 +3,75 @@
  */
 define([
   "constants",
-  "mediator"
-], function(C, mediator) {
+], function(C) {
   "use strict";
 
   // components can be pages or modules. Anything that wants to tie into the pub/sub system
   var components = {};
 
-  var registerPages = function(pages) {
-    _.each(pages, function(page) {
+  var register = function(rawComponents) {
+    _.each(rawComponents, function(component) {
 
-      // if the page didn't give itself a name, throw an error
-      if (!_.has(page, "name")) {
+      // if the component didn't give itself a name, throw an error
+      if (!_.has(component, "name")) {
         console.error("A page didn't give itself a name.");
         return;
       }
 
-      // bit dangerous (will overwrite!) but can be cleaned up later
-      page.type = C.COMPONENT_TYPES.PAGE;
-
-      components[page.name] = page;
-    });
-  };
-
-  var registerModules = function(modules) {
-    _.each(modules, function(module) {
-
-      // if the page didn't give itself a name, throw an error
-      if (!_.has(module, "name")) {
-        console.error("A module didn't give itself a name.");
+      // weak! Needs better validation
+      if (!_.has(component, "type")) {
+        console.error("A page didn't give itself a type (page / module).");
         return;
       }
 
-      module.type = C.COMPONENT_TYPES.MODULE;
-      components[module.name] = module;
+      components[component.name] = $.extend(true, {
+        type: null,
+        subscriptions: {},
+        init: function() {},
+        run: function() {}
+      }, component);
     });
   };
 
-  var initPages = function() {
-    var pages = _getComponentType(C.COMPONENT_TYPES.PAGE);
-    _.each(pages, function(val, key) {
-      if (_.has(pages[key], "init")) {
-        pages[key].init();
-      }
+  var init = function() {
+    _.each(components, function(val, key) {
+      components[key].init();
     });
   };
 
-  var initModules = function() {
-    var modules = _getComponentType(C.COMPONENT_TYPES.MODULE);
-    _.each(modules, function(val, key) {
-      if (_.has(modules[key], "init")) {
-        modules[key].init();
-      }
-    });
-  };
-
-  var _getComponentType = function(type) {
+  var getComponentType = function(type) {
     return _.filter(components, function(val, key) {
       return components[key].type === type;
     });
   };
 
+  var publish = function(componentID, message, data) {
+    if (C.DEBUG) {
+      console.log("[" + componentID + "] publish(): ", message, data);
+    }
+    _.each(components, function(val, key) {
+      var subscriptions = components[key].subscriptions;
+
+      // if this module has subscribed to this event, call the callback function
+      if (_.has(subscriptions, message)) {
+        subscriptions[message]({
+          sender: componentID,
+          data: data
+        });
+      }
+    });
+  };
+
+  var subscribe = function(id, subscriptions) {
+    components[id].subscriptions = subscriptions;
+  };
+
 
   return {
-    registerPages: registerPages,
-    registerModules: registerModules,
-    initPages: initPages,
-    initModules: initModules
+    register: register,
+    init: init,
+    publish: publish,
+    subscribe: subscribe
   };
 
 });

@@ -1,19 +1,24 @@
 define([
+  "constants",
   "crossroads",
   "text!aboutTemplate"
-], function(crossroads, aboutTemplate) {
+], function(C, crossroads, aboutTemplate) {
   "use strict";
 
-  var _init = function() {
-    crossroads.addRoute("/", _loadPage);
+
+  var init = function() {
+    crossroads.addRoute("", loadPage);
   };
 
-  var _loadPage = function() {
+  var loadPage = function() {
+    console.log("not here?", aboutTemplate);
     $("#content").html(aboutTemplate);
   };
 
+
   return {
     name: "aboutPage",
-    init: _init
+    type: C.COMPONENT_TYPES.PAGE,
+    init: init
   }
 });
