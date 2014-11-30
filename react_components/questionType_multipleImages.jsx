@@ -1,6 +1,7 @@
 define([
-  "../libs/react"
-], function(React) {
+  "react",
+  "jsx!FileUpload"
+], function(React, FileUpload) {
   "use strict";
 
 /*
@@ -53,6 +54,10 @@ define([
     render: function() {
       return (
         <div>
+          <p>
+            This question type is of the form: single image, with multiple responses - only of which is correct.
+          </p>
+
           <div class="row">
             <div class="col-lg-2">Question</div>
             <div class="col-lg-10">

@@ -10,20 +10,31 @@ define([
       this.setBreadcrumbsHTML();
     },
 
-    // TODO
     shouldComponentUpdate: function(nextProps, nextState) {
-      return true;
+      if (_.isEqual(nextProps, this.props)) {
+        return false;
+      }
     },
 
     componentWillUpdate: function () {
       this.setBreadcrumbsHTML();
     },
 
-    // TODO yuck. Incomplete, too.
     setBreadcrumbsHTML: function() {
       var html = "";
+
+      var lastIndex = this.props.breadcrumbs.length - 1;
       _.map(this.props.breadcrumbs, function(breadcrumb, index) {
-        html += "<h1>" + breadcrumb.label + "</h1>";
+
+        var item = breadcrumb.label;
+        if (_.has(breadcrumb, "link")) {
+          item = '<a href="' + breadcrumb.link + '">' + breadcrumb.label + '</a>';
+        }
+        html += "<span>" + item + "</span>";
+
+        if (index < lastIndex) {
+          html += '<span class="delimiter">&raquo;</span>';
+        }
       });
 
       this.state.breadcrumbsHTML = html;
@@ -35,7 +46,7 @@ define([
       return (
         <div className="row">
           <div className="col-lg-12">
-            <div className="page-header" dangerouslySetInnerHTML={{__html: this.state.breadcrumbsHTML }}></div>
+            <h1 className="page-header" dangerouslySetInnerHTML={{__html: this.state.breadcrumbsHTML }}></h1>
           </div>
         </div>
       );

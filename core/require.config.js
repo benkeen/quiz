@@ -28,9 +28,10 @@ requirejs.config({
     questionsTemplate: "pages/questions/questionsTemplate.html",
 
     // React components
-    header: "react_components/header",
-    breadcrumbs: "react_components/breadcrumbs",
-    multipleQuestionImage: "react_components/questionType_multipleImages"
+    Header: "react_components/Header",
+    Breadcrumbs: "react_components/Breadcrumbs",
+    MultipleQuestionImage: "react_components/QuestionType_multipleImages",
+    FileUpload: "react_components/FileUpload"
   },
 
   jsx: {

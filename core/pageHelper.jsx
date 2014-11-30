@@ -1,7 +1,7 @@
 define([
   "react",
   "text!layoutTemplate",
-  "jsx!breadcrumbs"
+  "jsx!Breadcrumbs"
 ], function(React, layoutTemplate, Breadcrumbs) {
   "use strict";
 

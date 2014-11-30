@@ -2,14 +2,14 @@
 define([
   "brain",
   "generalEvents",
-  "jsx!header",
+  "jsx!Header",
   "aboutPage",
   "jsx!questionsPage"
-], function(brain, generateEvents, header, aboutPage, questionsPage) {
+], function(brain, generateEvents, Header, aboutPage, questionsPage) {
   "use strict";
 
   // register all pages and modules. Right now pages register their own URL handlers
-  brain.register([aboutPage, questionsPage, header]);
+  brain.register([aboutPage, questionsPage, Header]);
 
   // initialize anything that needs initializing
   brain.initComponents();

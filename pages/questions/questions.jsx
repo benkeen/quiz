@@ -1,11 +1,12 @@
 define([
   "constants",
   "brain",
+  "pageHelper",
   "react",
   "crossroads",
   "text!questionsTemplate",
-  "jsx!multipleQuestionImage"
-], function(C, brain, React, crossroads, questionsTemplate, AddMultipleQuestionImage) {
+  "jsx!MultipleQuestionImage"
+], function(C, brain, pageHelper, React, crossroads, questionsTemplate, MultipleQuestionImage) {
 
   var componentID = "questionsPage";
 
@@ -17,16 +18,28 @@ define([
   var loadPage = function(opts) {
     publishPageLoaded();
 
-    // first, always register the main page template
-    $("#content").html(questionsTemplate);
+    // set the page template
+    pageHelper.renderPage({
+      breadcrumbs: [{ label: "Questions" }],
+      pageContent: questionsTemplate
+    });
   };
 
   var addQuestionPage = function () {
     publishPageLoaded();
 
+    // set the page template
+    pageHelper.renderPage({
+      breadcrumbs: [{
+        label: "Questions", link: "#questions"
+      }, {
+        label: "Add Question"
+      }]
+    });
+
     React.render(
-      <AddMultipleQuestionImage />,
-      document.getElementById('content')
+      <MultipleQuestionImage />,
+      document.getElementById('pageContent')
     );
   };
 

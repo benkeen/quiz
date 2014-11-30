@@ -9,3 +9,8 @@ section.body {
 .navbar-brand {
     width: 150px;
 }
+
+.delimiter {
+    margin: 0px 10px;
+    color: #999999;
+}
