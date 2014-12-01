@@ -72,7 +72,7 @@ define([
       return (
         <div>
           <p>
-            This question type is of the form: single image, with multiple responses - only of which is correct.
+            This question type is of the form: single bird image, with multiple responses - only of which is correct.
           </p>
 
           <h3>Step 1: Upload image</h3>
