@@ -28,7 +28,7 @@ define([
       return {
         previousPage: "",
         page: "",
-        githubLink: "http://whatever.com"
+        githubLink: C.CORE.GITHUB_URL
       };
     },
 
@@ -36,7 +36,7 @@ define([
       var lastPage = this.state.page;
       this.state.page = newProps.page;
 
-      // well this is ugly. Need to figure out if there's an appropriate way to parse the subDOM of the React
+      // well this is sure ugly. Need to figure out if there's an appropriate way to parse the subDOM of the React
       // component
       if (lastPage !== "") {
         var previousPageEl = this.refs[lastPage + "Link"].getDOMNode();
@@ -64,13 +64,13 @@ define([
               <li data-page="aboutPage" ref="aboutPageLink"><a href="#about">About</a></li>
               <li data-page="takeQuizPage" ref="takeQuizPageLink"><a href="#quiz">Take a Quiz</a></li>
               <li data-page="questionsPage" ref="questionsPageLink"><a href="#questions">Questions</a></li>
-              <li data-page="taxonomyPage" ref="taxonomyPageLink"><a href="#questions">Taxonomy</a></li>
+              <li data-page="taxonomyPage" ref="taxonomyPageLink"><a href="#taxonomy">Taxonomy</a></li>
               <li data-parent-page="contributePage" className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">Contribute
                   <b className="caret"></b>
                 </a>
                 <ul className="dropdown-menu">
-                  <li><a href="#">How to contribute</a></li>
+                  <li><a href="#">Ways to contribute</a></li>
                   <li className="divider"></li>
                   <li className="dropdown-header">Question</li>
                   <li><a href="#questions/add/multipleQuestionImage">Multiple-choice image</a></li>

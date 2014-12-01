@@ -32,7 +32,6 @@ requirejs.config({
     Header: "react_components/Header",
     Breadcrumbs: "react_components/Breadcrumbs",
     MultipleChoiceQuestion: "react_components/QuestionType_multipleChoice",
-    FileUpload: "react_components/FileUpload",
     TypeAheadField: "react_components/TypeAheadField"
   },
 

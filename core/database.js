@@ -44,8 +44,21 @@ define([
     });
   };
 
+  var createNewQuestion = function(callback) {
+    $.couch.db(C.DB.QUESTIONS.NAME).saveDoc({ status: "incomplete" }, {
+      success: function(resp) {
+        callback(resp); // promise!!
+      },
+      error: function(status) {
+        return;
+      }
+    });
+  };
+
+
   return {
-    getSpeciesList: getSpeciesList
+    getSpeciesList: getSpeciesList,
+    createNewQuestion: createNewQuestion
   };
 });
 

@@ -55,7 +55,7 @@ define([
 
       // seems like this is necessary? See componentDidMount notes: http://facebook.github.io/react/docs/component-specs.html
       setTimeout(function() {
-        $(".test123").typeahead({minLength: 3, highlight: true}, {
+        $(".typeaheadField").typeahead({minLength: 3, highlight: true}, {
           name: 'bird-species',
           source: self.filterSpeciesList(self.state.speciesList)
         });
@@ -65,7 +65,7 @@ define([
     // return the structure to display and bind the onChange, onSubmit handlers
     render: function () {
       return (
-        <input type="text" className="test123 form-control" placeholder="Enter species name" />
+        <input type="text" className="typeaheadField form-control" placeholder="Enter species name" />
       );
     }
   });
