@@ -4,8 +4,9 @@
 define([
   "constants",
   "crossroads",
-  "hasher"
-], function(C, crossroads, hasher) {
+  "hasher",
+  "database"
+], function(C, crossroads, hasher, database) {
   "use strict";
 
   // components can be pages or modules. Anything that wants to tie into the pub/sub system
@@ -91,7 +92,10 @@ define([
     register: register,
     initComponents: initComponents,
     publish: publish,
-    subscribe: subscribe
+    subscribe: subscribe,
+
+    // helpers
+    db: database
   };
 
 });

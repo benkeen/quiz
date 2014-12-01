@@ -17,6 +17,7 @@ requirejs.config({
     pageHelper: "core/pageHelper",
     generalEvents: "core/generalEvents",
     constants: "core/constants",
+    database: "core/database",
 
     // primary top-level templates
     layoutTemplate: "templates/layout.html",
@@ -31,7 +32,8 @@ requirejs.config({
     Header: "react_components/Header",
     Breadcrumbs: "react_components/Breadcrumbs",
     MultipleChoiceQuestion: "react_components/QuestionType_multipleChoice",
-    FileUpload: "react_components/FileUpload"
+    FileUpload: "react_components/FileUpload",
+    TypeAheadField: "react_components/TypeAheadField"
   },
 
   jsx: {

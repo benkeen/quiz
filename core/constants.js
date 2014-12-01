@@ -12,9 +12,14 @@ define([], function() {
 
   CONSTANTS.DB = {
     BASE_URL: "http://localhost:8000",
-    TABLES: {
-      QUESTIONS: 'questions',
-      BIRD_SPECIES: 'bird_species'
+    QUESTIONS: {
+      NAME: 'questions'
+    },
+    BIRD_SPECIES: {
+      NAME: 'bird_species',
+      VIEWS: {
+        SPECIES_LIST: 'species/speciesList'
+      }
     }
   };
 

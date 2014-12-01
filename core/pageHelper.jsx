@@ -11,8 +11,6 @@ define([
   var breadcrumbs;
 
   var addBreadcrumbs = function(data) {
-    console.log("in addBreadcrumbs: ", data);
-
     breadcrumbs = React.render(
       <Breadcrumbs breadcrumbs={data} />,
       document.getElementById('breadcrumbs')

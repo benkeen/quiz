@@ -1,54 +1,10 @@
 define([
+  "brain",
   "react",
-  "jsx!FileUpload"
-], function(React, FileUpload) {
+  "jsx!FileUpload",
+  "jsx!TypeAheadField"
+], function(brain, React, FileUpload, TypeAheadField) {
   "use strict";
-
-/*
-  $("#add").on("submit", function(e) {
-    e.preventDefault();
-
-    $.couch.urlPrefix = "http://localhost:8000";
-
-    var data = {
-      "question": $("#question").val(),
-      "answer": $("#answer").val()
-    };
-
-    var file = $("#image").val();
-
-    var databaseName = "questions";
-    var db = $.couch.db(databaseName);
-    db.saveDoc(data, {
-      success: function(resp) {
-        if (resp.ok === true) {
-          $.ajax({
-            type: "PUT",
-            url: "/" + databaseName + "/" + resp.id + "/" + $("#image").val() + "?rev=" + resp._rev,
-            data: data. Attachment,
-            contentType: "multipart/form-data",
-            success: function(resp) {
-              //show attachments in form
-            }
-          });
-
-          db.openDoc(resp.id, {
-            success: function (result) {
-              console.log("okay, opening worked:", result);
-              //$("#revision").val(result._rev);
-            },
-            error: function (a, b, c) {
-              alert("Error: " + c);
-              console.log("Error on openDoc:", a, b, c);
-            }
-          })
-        }
-      },
-      error: function(resp) {
-        console.log(resp);
-      }
-    });
-*/
 
 
   var MultipleChoice = React.createClass({
@@ -64,10 +20,6 @@ define([
       }
     },
 
-    createNewBlankQuestion: function () {
-
-    },
-
     render: function() {
       return (
         <div>
@@ -77,7 +29,21 @@ define([
 
           <h3>Step 1: Upload image</h3>
 
-          <FileUpload />
+          <div className="row form-group">
+            <div className="col-lg-2">Species</div>
+            <div className="col-lg-10">
+              <TypeAheadField />
+            </div>
+          </div>
+
+          <div className="row form-group">
+            <div className="col-lg-2">Image</div>
+            <div className="col-lg-10">
+              <FileUpload />
+
+              <div>Recommended image size: <b>1024</b> x <b>768px</b></div>
+            </div>
+          </div>
         </div>
       );
     }
