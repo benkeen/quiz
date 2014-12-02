@@ -101,7 +101,7 @@ define([
   };
 
 
-  // return out public API
+  // return our public API
   return {
 
     // for use by the startup code

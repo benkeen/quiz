@@ -1,3 +1,4 @@
+// not generic right now. TODO.
 define([
   "constants",
   "brain",
@@ -58,15 +59,16 @@ define([
         });
       });
 
-      //setTimeout(function() {
-      var myTypeahead = $(this.refs.typeahead.getDOMNode()).typeahead({minLength: 3, highlight: true}, {
-        name: 'bird-species',
-        source: self.filterSpeciesList(self.state.speciesList)
-      });
+      setTimeout(function() {
+        var myTypeahead = $(self.refs.typeahead.getDOMNode()).typeahead({minLength: 3, highlight: true}, {
+          name: 'bird-species',
+          source: self.filterSpeciesList(self.state.speciesList)
+        });
 
-      myTypeahead.on("typeahead:selected", function(e, data) {
-        component.publish(C.EVENTS.TYPEAHEAD_ITEM_SELECTED, { data: data });
-      });
+        myTypeahead.on("typeahead:selected", function(e, data) {
+          component.publish(C.EVENTS.TYPEAHEAD_ITEM_SELECTED, { speciesName: data.value });
+        });
+      }, 100);
     },
 
     // return the structure to display and bind the onChange, onSubmit handlers

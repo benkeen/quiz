@@ -31,7 +31,7 @@ define([
     });
   };
 
-  var addQuestionPage = function () {
+  function addQuestionPage() {
     publishPageLoaded();
 
     // set the page template
@@ -49,7 +49,7 @@ define([
     );
   };
 
-  var publishPageLoaded = function() {
+  function publishPageLoaded() {
     component.publish(C.EVENTS.PAGE.LOAD, { page: pageName });
   };
 

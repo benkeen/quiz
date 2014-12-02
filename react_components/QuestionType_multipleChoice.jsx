@@ -6,9 +6,20 @@ define([
 ], function(C, brain, React, TypeAheadField) {
   "use strict";
 
-  var COMPONENT_ID = "QuestionType_multipleChoice";
-  var MultipleChoice = React.createClass({
+  var component = brain.register({
+    name: "QuestionType_multipleChoice",
+    init: init
+  })
 
+  var selectedSpecies;
+  function init() {
+    component.subscribe(C.EVENTS.TYPEAHEAD_ITEM_SELECTED, function(msg) {
+      selectedSpecies = msg.data.speciesName;
+    });
+  }
+
+
+  var MultipleChoice = React.createClass({
     getInitialState: function() {
       return {
         currentDocId: null,
@@ -18,12 +29,8 @@ define([
 
     componentWillMount: function() {
       var self = this;
-      //brain.subscribe(COMPONENT_ID, C.EVENTS.TYPEAHEAD_ITEM_SELECTED, function(msg) {
-      //  console.log(msg);
-      //});
-
       if (_.isNull(this.state.currentDocId)) {
-        brain.db.createNewQuestion(function(resp) {
+        brain.db.createNewImage(function(resp) {
           self.setState({
             currentDocId: resp.id,
             currentDocRev: resp.rev
@@ -32,7 +39,7 @@ define([
       }
     },
 
-    submitStep1: function(e) {
+    continue: function(e) {
       e.preventDefault();
 
       var fileUploadField = this.refs.fileUpload.getDOMNode();
@@ -45,9 +52,9 @@ define([
       var fileReader = new FileReader();
       fileReader.onload = function(e) {
         putRequest.send(JSON.stringify({
-          filename: file.name,
-          filetype: file.type,
-          species: "",
+          fileName: file.name,
+          fileType: file.type,
+          species: selectedSpecies,
           data: e.target.result
         }));
       };
@@ -61,15 +68,26 @@ define([
     },
 
     render: function() {
+
+      if (this.currentStep === 1) {
+        return (
+          <MultipleChoiceStep1 />
+        )
+      } else {
+        return (
+          <MultipleChoiceStep1 />
+        )
+      }
+
       return (
         <div>
           <p>
             Question Format: <i>single bird image</i>, <i>multiple possible responses</i>.
           </p>
 
-          <h3>Step 1: Upload image</h3>
+          <h3>Step 1</h3>
 
-          <form id="step1Form" method="post" encType="multipart/form-data" onSubmit={this.submitStep1}>
+          <form id="step1Form" method="post" encType="multipart/form-data" onSubmit={this.continue}>
             <input type="hidden" name="_id" id="_id" value={this.state.currentDocId} />
             <input type="hidden" name="_rev" id="_rev" value={this.state.currentDocRev} />
 
@@ -96,7 +114,6 @@ define([
       );
     }
   });
-
 
   var Step2 = React.createClass({
     render: function() {
@@ -125,6 +142,7 @@ define([
       );
     }
   });
+
 
   return MultipleChoice;
 });

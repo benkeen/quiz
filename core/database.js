@@ -2,7 +2,6 @@ define([
   "constants"
 ], function(C) {
 
-
   // set the base URL for all queries
   $.couch.urlPrefix = C.DB.BASE_URL;
 
@@ -55,10 +54,34 @@ define([
     });
   };
 
+  var createNewImage = function(callback) {
+    $.couch.db(C.DB.BIRD_IMAGES.NAME).saveDoc({ status: "incomplete" }, {
+      success: function(resp) {
+        callback(resp); // promise!!
+      },
+      error: function(status) {
+        return;
+      }
+    });
+  };
+
+
+  // argghhh promises!!!!
+  var getDBInfo = function() {
+    $.couch.info({
+      success: function(resp) {
+        console.log(resp);
+      },
+      error: function(resp) {
+        console.log("err:", arguments);
+      }
+    })
+  };
 
   return {
     getSpeciesList: getSpeciesList,
-    createNewQuestion: createNewQuestion
+    createNewQuestion: createNewQuestion,
+    createNewImage: createNewImage
   };
 });
 
