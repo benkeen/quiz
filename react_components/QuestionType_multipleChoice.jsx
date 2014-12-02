@@ -6,7 +6,7 @@ define([
 ], function(C, brain, React, TypeAheadField) {
   "use strict";
 
-
+  var COMPONENT_ID = "QuestionType_multipleChoice";
   var MultipleChoice = React.createClass({
 
     getInitialState: function() {
@@ -17,8 +17,12 @@ define([
     },
 
     componentWillMount: function() {
+      var self = this;
+      //brain.subscribe(COMPONENT_ID, C.EVENTS.TYPEAHEAD_ITEM_SELECTED, function(msg) {
+      //  console.log(msg);
+      //});
+
       if (_.isNull(this.state.currentDocId)) {
-        var self = this;
         brain.db.createNewQuestion(function(resp) {
           self.setState({
             currentDocId: resp.id,
@@ -34,18 +38,20 @@ define([
       var fileUploadField = this.refs.fileUpload.getDOMNode();
       var file = fileUploadField.files[0];
 
-      var name = encodeURIComponent(file.name),
-          type = file.type;
-
       var putRequest = new XMLHttpRequest();
-      putRequest.open('PUT', C.DB.BASE_URL + "/" + C.DB.QUESTIONS.NAME + "/" + this.state.currentDocId + '?rev=' + this.state.currentDocRev, true);
-      putRequest.setRequestHeader('Content-Type', "text/javascript");
+      putRequest.open('PUT', C.DB.BASE_URL + "/" + C.DB.BIRD_IMAGES.NAME + "/" + this.state.currentDocId + '?rev=' + this.state.currentDocRev, true);
+      putRequest.setRequestHeader('Content-Type', "application/json");
 
       var fileReader = new FileReader();
-      fileReader.readAsArrayBuffer(file);
-      fileReader.onload = function(readerEvent) {
-        putRequest.send(JSON.stringify({"data": readerEvent.target.result}));
+      fileReader.onload = function(e) {
+        putRequest.send(JSON.stringify({
+          filename: file.name,
+          filetype: file.type,
+          species: "",
+          data: e.target.result
+        }));
       };
+      fileReader.readAsDataURL(file);
 
       putRequest.onreadystatechange = function(response) {
         if (putRequest.readyState == 4) {

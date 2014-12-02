@@ -1,15 +1,21 @@
 define([
-  "../core/constants",
+  "constants",
   "brain",
   "react"
 ], function(C, brain, React) {
 
-  var componentID = "header";
+  var component = brain.register({
+    name: "header",
+    type: C.COMPONENT_TYPES.MODULE,
+    init: init
+  });
+
   var page = "";
   var header;
 
-  var init = function() {
-    brain.subscribe(componentID, C.EVENTS.PAGE.LOAD, onLoadPage);
+
+  function init() {
+    component.subscribe(C.EVENTS.PAGE.LOAD, onLoadPage);
 
     // render our header. This is done once.
     header = React.render(
@@ -18,7 +24,7 @@ define([
     );
   };
 
-  var onLoadPage = function(msg) {
+  function onLoadPage(msg) {
     header.setProps({ page: msg.data.page });
   };
 
@@ -87,10 +93,4 @@ define([
       )
     }
   });
-
-  return {
-    name: componentID,
-    type: C.COMPONENT_TYPES.MODULE,
-    init: init
-  };
 });

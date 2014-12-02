@@ -1,16 +1,14 @@
-/**
- * TODO - this is all very thin at the moment. I'm just adding enough to get started. I'll refactor later.
- */
 define([
   "constants",
   "crossroads",
   "hasher",
   "database"
-], function(C, crossroads, hasher, database) {
+], function(C, crossroads, hasher, db) {
   "use strict";
 
   // components can be pages or modules. Anything that wants to tie into the pub/sub system
   var components = {};
+  var nextComponentId = 1;
 
 
   // starts the whole app
@@ -30,43 +28,58 @@ define([
     hasher.setHash(initialPath);
   };
 
-  var register = function(rawComponents) {
-    _.each(rawComponents, function(component) {
 
-      // if the component didn't give itself a name, throw an error
-      if (!_.has(component, "name")) {
-        console.error("A page didn't give itself a name.");
-        return;
+  /**
+   * Any piece of code - page, module, arbitrary chunk of code - can register itself. Each gets access to the
+   * central pub/sub system. No required params are necessary (yet) but the more it tells us about itself, the more
+   * we can get out of it. For example, it can include a list of subscription events to subscribe to
+   * ("event name" => callback), an init() function that gets called on page load, and what type it is (see
+   * C.COMPONENT_TYPES).
+   * @param component
+   * @returns {{publish: Function, subscribe: Function}}
+   */
+  var register = function(component) {
+
+    // let's play safe
+    component = (!_.isUndefined(component)) ? component : {};
+
+    var name;
+    if (_.has(component, "name")) {
+      name = component.name;
+    } else {
+      name = "comp" + nextComponentId;
+      nextComponentId++;
+    }
+
+    // store the information about this component
+    components[name] = $.extend(true, {
+      type: null,
+      subscriptions: {},
+      init: function() {}
+    }, component);
+
+    // return a convenient API for use by whatever just registered itself (page, module)
+    return {
+      publish: function(msg, data) {
+        _publish(name, msg, data);
+      },
+      subscribe: function(msg, callback) {
+        _subscribe(name, msg, callback);
       }
-
-      // weak! Needs better validation
-      if (!_.has(component, "type")) {
-        console.error("A page didn't give itself a type (page / module).");
-        return;
-      }
-
-      components[component.name] = $.extend(true, {
-        type: null,
-        subscriptions: {},
-        init: function() {},
-        run: function() {}
-      }, component);
-    });
+    }
   };
 
-  var initComponents = function() {
+  var init = function() {
     _.each(components, function(val, key) {
       components[key].init();
     });
   };
 
-  //var getComponentType = function(type) {
-  //  return _.filter(components, function(val, key) {
-  //    return components[key].type === type;
-  //  });
-  //};
 
-  var publish = function(componentID, message, data) {
+
+  // private functions
+
+  var _publish = function(componentID, message, data) {
     if (C.DEBUG) {
       console.log("[" + componentID + "] publish(): ", message, data);
     }
@@ -83,19 +96,24 @@ define([
     });
   };
 
-  var subscribe = function(id, msg, callback) {
+  var _subscribe = function(id, msg, callback) {
     components[id].subscriptions[msg] = callback;
   };
 
+
+  // return out public API
   return {
+
+    // for use by the startup code
     start: start,
+    init: init,
+
+    // for use by pages and modules
     register: register,
-    initComponents: initComponents,
-    publish: publish,
-    subscribe: subscribe,
 
     // helpers
-    db: database
+    crossroads: crossroads,
+    db: db
   };
 
 });

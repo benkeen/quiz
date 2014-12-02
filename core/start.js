@@ -1,4 +1,3 @@
-// TODO early days!
 define([
   "brain",
   "generalEvents",
@@ -8,12 +7,10 @@ define([
 ], function(brain, generateEvents, Header, aboutPage, questionsPage) {
   "use strict";
 
-  // register all pages and modules. Right now pages register their own URL handlers
-  brain.register([aboutPage, questionsPage, Header]);
-
   // initialize anything that needs initializing
-  brain.initComponents();
+  brain.init();
 
   // start 'er up!
   brain.start();
+
 });

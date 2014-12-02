@@ -2,22 +2,25 @@ define([
   "constants",
   "brain",
   "jsx!pageHelper",
-  "crossroads",
   "text!aboutTemplate"
-], function(C, brain, pageHelper, crossroads, aboutTemplate) {
+], function(C, brain, pageHelper, aboutTemplate) {
   "use strict";
 
-  var componentID = "aboutPage";
+  // component, register thyself
+  var pageName = "aboutPage";
+  var component = brain.register({
+    name: pageName,
+    type: C.COMPONENT_TYPES.PAGE,
+    init: init
+  });
 
-  var init = function() {
-    crossroads.addRoute("", loadPage);
-    crossroads.addRoute("about", loadPage);
+  function init() {
+    brain.crossroads.addRoute("", loadPage);
+    brain.crossroads.addRoute("about", loadPage);
   };
 
-  var loadPage = function() {
-
-    // notify anyone that's interested that this component just loaded (be nice to centralize...)
-    brain.publish(componentID, C.EVENTS.PAGE.LOAD, { page: componentID });
+  function loadPage() {
+    component.publish(C.EVENTS.PAGE.LOAD, { page: pageName });
 
     // set the page template
     pageHelper.renderPage({
@@ -26,10 +29,4 @@ define([
     });
   };
 
-
-  return {
-    name: componentID,
-    type: C.COMPONENT_TYPES.PAGE,
-    init: init
-  }
 });

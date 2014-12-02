@@ -1,7 +1,12 @@
 define([
+  "constants",
   "brain",
   "react"
-], function(brain, React) {
+], function(C, brain, React) {
+
+  var component = brain.register({
+    name: "typeaheadField"
+  });
 
   var TypeAheadField = React.createClass({
 
@@ -53,19 +58,21 @@ define([
         });
       });
 
-      // seems like this is necessary? See componentDidMount notes: http://facebook.github.io/react/docs/component-specs.html
-      setTimeout(function() {
-        $(".typeaheadField").typeahead({minLength: 3, highlight: true}, {
-          name: 'bird-species',
-          source: self.filterSpeciesList(self.state.speciesList)
-        });
-      }, 100);
+      //setTimeout(function() {
+      var myTypeahead = $(this.refs.typeahead.getDOMNode()).typeahead({minLength: 3, highlight: true}, {
+        name: 'bird-species',
+        source: self.filterSpeciesList(self.state.speciesList)
+      });
+
+      myTypeahead.on("typeahead:selected", function(e, data) {
+        component.publish(C.EVENTS.TYPEAHEAD_ITEM_SELECTED, { data: data });
+      });
     },
 
     // return the structure to display and bind the onChange, onSubmit handlers
     render: function () {
       return (
-        <input type="text" className="typeaheadField form-control" placeholder="Enter species name" />
+        <input type="text" className="typeaheadField form-control" ref="typeahead" placeholder="Enter species name" />
       );
     }
   });

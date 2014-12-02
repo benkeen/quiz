@@ -2,7 +2,7 @@ define([], function() {
 
   var CONSTANTS = {};
 
-  CONSTANTS.DEBUG = false;
+  CONSTANTS.DEBUG = true;
 
   CONSTANTS.CORE = {
     APP_VERSION: "0.0.1",
@@ -12,6 +12,8 @@ define([], function() {
 
   CONSTANTS.DB = {
     BASE_URL: "http://localhost:8000",
+
+    // Databases
     QUESTIONS: {
       NAME: 'questions'
     },
@@ -20,6 +22,9 @@ define([], function() {
       VIEWS: {
         SPECIES_LIST: 'species/speciesList'
       }
+    },
+    BIRD_IMAGES: {
+      NAME: 'bird_images'
     }
   };
 
@@ -31,7 +36,8 @@ define([], function() {
   CONSTANTS.EVENTS = {
     PAGE: {
       LOAD: 'event-page-load'
-    }
+    },
+    TYPEAHEAD_ITEM_SELECTED: 'event-typeahead-component-loaded'
   };
 
   return CONSTANTS;

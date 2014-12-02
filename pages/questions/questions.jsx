@@ -3,19 +3,25 @@ define([
   "brain",
   "pageHelper",
   "react",
-  "crossroads",
   "text!questionsTemplate",
   "jsx!MultipleChoiceQuestion"
-], function(C, brain, pageHelper, React, crossroads, questionsTemplate, MultipleChoiceQuestion) {
+], function(C, brain, pageHelper, React, questionsTemplate, MultipleChoiceQuestion) {
 
-  var componentID = "questionsPage";
+  // component, register thyself
+  var pageName = "questionsPage";
+  var component = brain.register({
+    name: pageName,
+    type: C.COMPONENT_TYPES.PAGE,
+    init: init
+  });
 
-  var init = function() {
-    crossroads.addRoute("questions", loadPage);
-    crossroads.addRoute("questions/add/{type}", addQuestionPage);
+
+  function init() {
+    brain.crossroads.addRoute("questions", loadPage);
+    brain.crossroads.addRoute("questions/add/{type}", addQuestionPage);
   };
 
-  var loadPage = function(opts) {
+  function loadPage(opts) {
     publishPageLoaded();
 
     // set the page template
@@ -43,9 +49,8 @@ define([
     );
   };
 
-
   var publishPageLoaded = function() {
-    brain.publish(componentID, C.EVENTS.PAGE.LOAD, { page: componentID });
+    component.publish(C.EVENTS.PAGE.LOAD, { page: pageName });
   };
 
 
@@ -99,11 +104,4 @@ define([
   //  <QuestionTable url="http://localhost:8000/questions/_all_docs?include_docs=true" />,
   //  document.getElementById('list')
   //);
-
-
-  return {
-    name: componentID,
-    type: C.COMPONENT_TYPES.PAGE,
-    init: init
-  };
 });
