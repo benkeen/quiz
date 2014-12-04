@@ -2,8 +2,9 @@ define([
   "constants",
   "brain",
   "pageHelper",
-  "react"
-], function(C, brain, pageHelper, React) {
+  "react",
+  "jsx!ImageList"
+], function(C, brain, pageHelper, React, ImageList) {
 
   // component, register thyself
   var pageName = "imagesPage";
@@ -18,6 +19,7 @@ define([
     brain.crossroads.addRoute("images", loadPage);
     brain.crossroads.addRoute("images/add/{type}", addImagePage);
   };
+
 
   function loadPage(opts) {
     publishPageLoaded(); // boo

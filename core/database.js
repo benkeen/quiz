@@ -65,6 +65,17 @@ define([
     });
   };
 
+  var getImages = function(docId, callback) {
+    $.couch.db(C.DB.BIRD_IMAGES.NAME).view(C.DB.BIRD_IMAGES.VIEWS.ALL_IMAGES, {
+      success: function(resp) {
+        callback(resp); // promise!!
+      },
+      error: function(status) {
+        return;
+      }
+    });
+  };
+
   var getImage = function(docId, callback) {
     $.couch.db(C.DB.BIRD_IMAGES.NAME).openDoc(docId, {
       success: function(resp) {
@@ -76,7 +87,6 @@ define([
     });
   };
 
-  // argghhh promises!!!!
   var getDBInfo = function() {
     $.couch.info({
       success: function(resp) {
@@ -92,7 +102,8 @@ define([
     getSpeciesList: getSpeciesList,
     createNewQuestion: createNewQuestion,
     createNewImage: createNewImage,
-    getImage: getImage
+    getImage: getImage,
+    getImages: getImages
   };
 });
 

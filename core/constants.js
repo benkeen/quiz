@@ -24,7 +24,10 @@ define([], function() {
       }
     },
     BIRD_IMAGES: {
-      NAME: 'bird_images'
+      NAME: 'bird_images',
+      VIEWS: {
+        ALL_IMAGES: '_design/allImages'
+      }
     }
   };
 
