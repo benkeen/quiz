@@ -1,4 +1,3 @@
-// not generic right now. TODO.
 define([
   "constants",
   "brain",
@@ -6,18 +5,22 @@ define([
 ], function(C, brain, React) {
 
   var component = brain.register({
-    name: "typeaheadField"
+    name: "typeAheadField"
   });
 
   var TypeAheadField = React.createClass({
 
-    // since we are starting off without any data, there is no initial value
-    getInitialState: function() {
+    propTypes: {
+      list: React.PropTypes.array
+    },
+
+    getDefaultProps: function() {
       return {
-        numSpecies: 0,
-        speciesMap: {},
-        speciesList: []
-      };
+        list: [],
+        minLength: 3,
+        highlight: true,
+        placeholder: 'Enter to search'
+      }
     },
 
     filterSpeciesList: function(strs) {
@@ -37,44 +40,37 @@ define([
             matches.push({ value: str });
           }
         });
-
         cb(matches);
       };
     },
 
-    componentDidMount: function() {
-      var self = this;
+    shouldComponentUpdate: function(nextProps) {
 
-      brain.db.getSpeciesList(function(resp) {
-        var list = [];
-        var map = {};
-        _.each(resp.rows, function(item) {
-          list.push(item.key);
-          map[item.key] = item.id;
-        });
-        self.setState({
-          numSpecies: resp.total_rows,
-          speciesMap: map,
-          speciesList: list
-        });
+      // bit thin! But it'll do for now
+      if (this.props.list.length !== nextProps.list.length) {
+        return true;
+      }
+    },
+
+    componentDidUpdate: function() {
+      var self = this;
+      var typeahead = $(self.refs.typeahead.getDOMNode()).typeahead({
+        minLength: self.props.minLength,
+        highlight: self.props.highlight
+      }, {
+        name: 'typeAheadField',
+        source: self.filterSpeciesList(self.props.list)
       });
 
-      setTimeout(function() {
-        var myTypeahead = $(self.refs.typeahead.getDOMNode()).typeahead({minLength: 3, highlight: true}, {
-          name: 'bird-species',
-          source: self.filterSpeciesList(self.state.speciesList)
-        });
-
-        myTypeahead.on("typeahead:selected", function(e, data) {
-          component.publish(C.EVENTS.TYPEAHEAD_ITEM_SELECTED, { speciesName: data.value });
-        });
-      }, 100);
+      typeahead.on("typeahead:selected", function(e, data) {
+        component.publish(C.EVENTS.TYPEAHEAD_ITEM_SELECTED, { speciesName: data.value });
+      });
     },
 
     // return the structure to display and bind the onChange, onSubmit handlers
     render: function () {
       return (
-        <input type="text" className="typeaheadField form-control" ref="typeahead" placeholder="Enter species name" />
+        <input type="text" className="typeaheadField form-control" ref="typeahead" placeholder={this.props.placeholder} />
       );
     }
   });

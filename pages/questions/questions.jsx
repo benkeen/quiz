@@ -3,9 +3,8 @@ define([
   "brain",
   "pageHelper",
   "react",
-  "text!questionsTemplate",
-  "jsx!MultipleChoiceQuestion"
-], function(C, brain, pageHelper, React, questionsTemplate, MultipleChoiceQuestion) {
+  "jsx!QuestionList"
+], function(C, brain, pageHelper, React, QuestionList) {
 
   // component, register thyself
   var pageName = "questionsPage";
@@ -18,7 +17,7 @@ define([
 
   function init() {
     brain.crossroads.addRoute("questions", loadPage);
-    brain.crossroads.addRoute("questions/add/{type}", addQuestionPage);
+//    brain.crossroads.addRoute("questions/add/{type}", addQuestionPage);
   };
 
   function loadPage(opts) {
@@ -27,8 +26,13 @@ define([
     // set the page template
     pageHelper.renderPage({
       breadcrumbs: [{ label: "Questions" }],
-      pageContent: questionsTemplate
+      pageContent: ""
     });
+
+    React.render(
+      <QuestionList />,
+      document.getElementById('pageContent')
+    );
   };
 
   function addQuestionPage() {
@@ -52,6 +56,7 @@ define([
   function publishPageLoaded() {
     component.publish(C.EVENTS.PAGE.LOAD, { page: pageName });
   };
+
 
 
 /*  var QuestionTable = React.createClass({

@@ -70,7 +70,7 @@ define([
               <li data-page="aboutPage" ref="aboutPageLink"><a href="#about">About</a></li>
               <li data-page="takeQuizPage" ref="takeQuizPageLink"><a href="#quiz">Take a Quiz</a></li>
               <li data-page="questionsPage" ref="questionsPageLink"><a href="#questions">Questions</a></li>
-              <li data-page="taxonomyPage" ref="taxonomyPageLink"><a href="#taxonomy">Taxonomy</a></li>
+              <li data-page="imagesPage" ref="imagesPageLink"><a href="#images">Images</a></li>
               <li data-parent-page="contributePage" className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">Contribute
                   <b className="caret"></b>
@@ -78,8 +78,8 @@ define([
                 <ul className="dropdown-menu">
                   <li><a href="#">Ways to contribute</a></li>
                   <li className="divider"></li>
-                  <li className="dropdown-header">Question</li>
-                  <li><a href="#questions/add/multipleQuestionImage">Multiple-choice image</a></li>
+                  <li><a href="#questions/add">Write a Question</a></li>
+                  <li><a href="#images/add">Upload an Image</a></li>
                 </ul>
               </li>
             </ul>

@@ -26,13 +26,20 @@ requirejs.config({
     aboutPage: "pages/about/about",
     aboutTemplate: "pages/about/aboutTemplate.html",
     questionsPage: "pages/questions/questions",
-    questionsTemplate: "pages/questions/questionsTemplate.html",
+    imagesPage: "pages/images/images",
 
     // React components
     Header: "react_components/Header",
     Breadcrumbs: "react_components/Breadcrumbs",
-    MultipleChoiceQuestion: "react_components/QuestionType_multipleChoice",
-    TypeAheadField: "react_components/TypeAheadField"
+    TypeAheadField: "react_components/TypeAheadField",
+
+    QuestionList: "react_components/QuestionList",
+
+    ImageList: "react_components/ImageList",
+    ImageUploader: "react_components/ImageUploader/component",
+    ImageUploaderStep1: "react_components/ImageUploader/step1",
+    ImageUploaderStep2: "react_components/ImageUploader/step2"
+
   },
 
   jsx: {

@@ -65,6 +65,16 @@ define([
     });
   };
 
+  var getImage = function(docId, callback) {
+    $.couch.db(C.DB.BIRD_IMAGES.NAME).openDoc(docId, {
+      success: function(resp) {
+        callback(resp);
+      },
+      error: function(status) {
+        return;
+      }
+    });
+  };
 
   // argghhh promises!!!!
   var getDBInfo = function() {
@@ -81,7 +91,8 @@ define([
   return {
     getSpeciesList: getSpeciesList,
     createNewQuestion: createNewQuestion,
-    createNewImage: createNewImage
+    createNewImage: createNewImage,
+    getImage: getImage
   };
 });
 

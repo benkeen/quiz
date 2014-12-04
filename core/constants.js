@@ -37,7 +37,8 @@ define([], function() {
     PAGE: {
       LOAD: 'event-page-load'
     },
-    TYPEAHEAD_ITEM_SELECTED: 'event-typeahead-component-loaded'
+    TYPEAHEAD_ITEM_SELECTED: 'event-typeahead-component-loaded',
+    CONTINUE: 'continue'
   };
 
   return CONSTANTS;
