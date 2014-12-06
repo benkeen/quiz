@@ -17,7 +17,7 @@ define([
 
   function init() {
     brain.crossroads.addRoute("images", loadPage);
-    brain.crossroads.addRoute("images/add/{type}", addImagePage);
+    brain.crossroads.addRoute("images/add/", addImagePage);
   };
 
 
@@ -45,12 +45,12 @@ define([
       breadcrumbs: [{
         label: "Images", link: "#images"
       }, {
-        label: "Add Question"
+        label: "Add Image"
       }]
     });
 
     React.render(
-      <MultipleChoiceQuestion />,
+      <ImageList />,
       document.getElementById('pageContent')
     );
   };
