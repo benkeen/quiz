@@ -20,13 +20,15 @@ app.route('/upload').post(function(req, res, next) {
   req.pipe(req.busboy);
   req.busboy.on('file', function(fieldname, file, filename) {
     var root = __dirname + "/app/img/";
-    //var newFilename = getUploadedFilename(root, filename);
-    var newFilename = filename;
+    var newFilename = getUploadedFilename(root, filename);
     fstream = fs.createWriteStream(root + newFilename);
 
     file.pipe(fstream);
     fstream.on('close', function() {
-      res.write({ filename: newFilename });
+
+      // return the new filename to the client
+      res.write('{ "filename": "' + newFilename + '" }');
+      res.end();
     });
   });
 });
@@ -57,15 +59,12 @@ function getUploadedFilename(folder, filename) {
     var extension = parts.pop();
     var filenameWithoutExtension = parts.join(".");
 
-    console.log("file existed: ", filenameWithoutExtension, extension);
-
     // if the file is taken, keep increasing the
     if (endsWith(filenameWithoutExtension, "-" + num)) {
       var suffix = new RegExp('-' + num);
       num++;
-      currFilename = currFilename.replace(suffix, '-' + num) + "." + extension;
+      currFilename = filenameWithoutExtension.replace(suffix, '-' + num) + "." + extension;
     } else {
-      console.log(filenameWithoutExtension + '-' + num + "." + extension);
       currFilename = filenameWithoutExtension + '-' + num + "." + extension;
     }
   };
