@@ -53,7 +53,7 @@ define([
           </p>
 
           <div className="well">
-            <input type="file" ref="image" />
+            <input type="file" ref="image" className="btn btn-default" />
           </div>
 
           <div className="panel panel-default">

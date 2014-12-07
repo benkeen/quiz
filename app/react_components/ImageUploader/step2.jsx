@@ -59,18 +59,30 @@ define([
             <input type="button" className="btn btn-default" value="Enable Cropping Tool" />
           </div>
 
-          <div className="row">
-            <div className="col-lg-10">
-              <div className="img-container">
-                <img src={imageLocation} ref="image"/>
+          <div className="well">
+            <div className="row">
+              <div className="col-lg-10">
+                <b>Your image</b>
+              </div>
+              <div className="col-lg-2">
+                <b>Thumbnails</b>
               </div>
             </div>
 
-            <div className="col-lg-2">
-              <div className="img-preview bird-image-preview"></div>
+            <div className="row">
+              <div className="col-lg-10">
+                <div className="img-container">
+                  <img src={imageLocation} ref="image" />
+                </div>
+              </div>
+
+              <div className="col-lg-2">
+                <div className="img-preview bird-image-preview"></div>
+              </div>
             </div>
 
           </div>
+
           <div className="row">
             <div className="col-lg-12">
               <p>
