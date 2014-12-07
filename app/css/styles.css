@@ -15,6 +15,17 @@ section.body {
     color: #999999;
 }
 
+.bird-image-preview {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border: 1px solid #999999;
+}
+.cropper-container {
+    top: 0 !important;
+    border: 1px solid #999999;
+    margin-bottom: 30px;
+}
 
 span.twitter-typeahead .tt-dropdown-menu {
     max-height: 200px;
@@ -74,4 +85,15 @@ span.twitter-typeahead {
 }
 .input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu {
     top: 28px !important;
+}
+
+
+/* bootstrap overrides */
+h1 {
+    font-size: 42px;
+}
+.breadcrumbs-right {
+    position: absolute;
+    right: 15px;
+    top: 52px;
 }

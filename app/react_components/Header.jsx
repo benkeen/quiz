@@ -68,7 +68,6 @@ define([
           <div className="navbar-collapse collapse navbar-inverse-collapse">
             <ul className="nav navbar-nav">
               <li data-page="aboutPage" ref="aboutPageLink"><a href="#about">About</a></li>
-              <li data-page="takeQuizPage" ref="takeQuizPageLink"><a href="#quiz">Take a Quiz</a></li>
               <li data-page="questionsPage" ref="questionsPageLink"><a href="#questions">Questions</a></li>
               <li data-page="imagesPage" ref="imagesPageLink"><a href="#images">Images</a></li>
               <li data-parent-page="contributePage" className="dropdown">

@@ -10,6 +10,12 @@ define([
       this.setBreadcrumbsHTML();
     },
 
+    getDefaultProps: function() {
+      return {
+        breadcrumbRight: ""
+      }
+    },
+
     shouldComponentUpdate: function(nextProps, nextState) {
       return (!_.isEqual(nextProps, this.props));
     },
@@ -23,7 +29,6 @@ define([
 
       var lastIndex = this.props.breadcrumbs.length - 1;
       _.map(this.props.breadcrumbs, function(breadcrumb, index) {
-
         var item = breadcrumb.label;
         if (_.has(breadcrumb, "link")) {
           item = '<a href="' + breadcrumb.link + '">' + breadcrumb.label + '</a>';
@@ -45,6 +50,7 @@ define([
         <div className="row">
           <div className="col-lg-12">
             <h1 className="page-header" dangerouslySetInnerHTML={{__html: this.state.breadcrumbsHTML }}></h1>
+            <div className="breadcrumbs-right" dangerouslySetInnerHTML={{__html: this.props.breadcrumbsRight }}></div>
           </div>
         </div>
       );

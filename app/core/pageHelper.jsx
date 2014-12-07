@@ -6,13 +6,12 @@ define([
   "use strict";
 
   var lastTemplate = null;
-  var templates = {};
 
   var breadcrumbs;
 
-  var addBreadcrumbs = function(data) {
+  var addBreadcrumbs = function(props) {
     breadcrumbs = React.render(
-      <Breadcrumbs breadcrumbs={data} />,
+      <Breadcrumbs {...props} />,
       document.getElementById('breadcrumbs')
     )
   };
@@ -21,6 +20,7 @@ define([
     var opts = $.extend({
       template: "main",
       breadcrumbs: "",
+      breadcrumbsRight: "",
       pageContent: ""
     }, options);
 
@@ -29,9 +29,12 @@ define([
       $("#content").html(layoutTemplate); // obviously TODO when we need it
     }
 
-
     if (opts.breadcrumbs) {
-      addBreadcrumbs(opts.breadcrumbs);
+      var props = { breadcrumbs: opts.breadcrumbs };
+      if (opts.breadcrumbsRight) {
+        props.breadcrumbsRight = opts.breadcrumbsRight;
+      }
+      addBreadcrumbs(props);
     }
 
     // let's assume there's always content [this could be React too, maybe...]

@@ -43,8 +43,8 @@ define([
     });
   };
 
-  var createNewQuestion = function(callback) {
-    $.couch.db(C.DB.QUESTIONS.NAME).saveDoc({ status: "incomplete" }, {
+  var createNewQuestion = function(doc, callback) {
+    $.couch.db(C.DB.QUESTIONS.NAME).saveDoc(doc, {
       success: function(resp) {
         callback(resp); // promise!!
       },
@@ -54,10 +54,10 @@ define([
     });
   };
 
-  var createNewImage = function(callback) {
-    $.couch.db(C.DB.BIRD_IMAGES.NAME).saveDoc({ status: "incomplete" }, {
+  var createImageDoc = function(doc, callback) {
+    $.couch.db(C.DB.BIRD_IMAGES.NAME).saveDoc(doc, {
       success: function(resp) {
-        callback(resp); // promise!!
+        callback(resp);
       },
       error: function(status) {
         return;
@@ -76,8 +76,21 @@ define([
     });
   };
 
-  var getImage = function(docId, callback) {
+  var getImageDoc = function(docId, callback) {
     $.couch.db(C.DB.BIRD_IMAGES.NAME).openDoc(docId, {
+      success: function(resp) {
+        callback(resp);
+      },
+      error: function(status) {
+        return;
+      }
+    });
+  };
+
+  var updateImageDoc = function(doc, callback) {
+    console.log("updating", doc);
+
+    $.couch.db(C.DB.BIRD_IMAGES.NAME).saveDoc(doc, {
       success: function(resp) {
         callback(resp);
       },
@@ -101,11 +114,13 @@ define([
   return {
     getSpeciesList: getSpeciesList,
     createNewQuestion: createNewQuestion,
-    createNewImage: createNewImage,
-    getImage: getImage,
-    getImages: getImages
+    createImageDoc: createImageDoc,
+    getImageDoc: getImageDoc,
+    getImages: getImages,
+    updateImageDoc: updateImageDoc
   };
 });
+
 
 // Total number of species
 // http://localhost:8000/bird_species/_design/numSpecies/_view/numSpecies?reduce=true&group=true

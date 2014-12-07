@@ -37,10 +37,7 @@ define([
         <div className="row">
           <div className="col-lg-12">
 
-            <form method="post" action="upload" onSubmit={this.onSubmit} encType="multipart/form-data">
-              <input type="file" ref="image" />
-              <input type="submit" />
-            </form>
+            Image list here
 
           </div>
         </div>

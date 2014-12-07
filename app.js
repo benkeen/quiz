@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var busboy = require('connect-busboy');
 var path = require('path');
 var fs = require('fs-extra');
+var helpers = require('./code/helpers.js');
 
 
 var app = express();
@@ -20,7 +21,7 @@ app.route('/upload').post(function(req, res, next) {
   req.pipe(req.busboy);
   req.busboy.on('file', function(fieldname, file, filename) {
     var root = __dirname + "/app/img/";
-    var newFilename = getUploadedFilename(root, filename);
+    var newFilename = helpers.getUploadedFilename(root, filename);
     fstream = fs.createWriteStream(root + newFilename);
 
     file.pipe(fstream);
@@ -41,40 +42,6 @@ app.use(function (req, res, next) {
     next();
   }
 });
-
-
-/**
- * Helper function to get a safe filename for an uploaded file. It checks the folder for filename conflicts.
- * @param folder
- * @param filename
- * @returns {*}
- */
-function getUploadedFilename(folder, filename) {
-  var currFilename = filename;
-  var num = 1;
-
-  // as long as the file exists, keep adding a -N suffix until we fi
-  while (fs.existsSync(folder + currFilename)) {
-    var parts = currFilename.split(".");
-    var extension = parts.pop();
-    var filenameWithoutExtension = parts.join(".");
-
-    // if the file is taken, keep increasing the
-    if (endsWith(filenameWithoutExtension, "-" + num)) {
-      var suffix = new RegExp('-' + num);
-      num++;
-      currFilename = filenameWithoutExtension.replace(suffix, '-' + num) + "." + extension;
-    } else {
-      currFilename = filenameWithoutExtension + '-' + num + "." + extension;
-    }
-  };
-
-  return currFilename;
-}
-
-function endsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1;
-}
 
 
 app.listen(1234);

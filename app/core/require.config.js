@@ -9,7 +9,7 @@ requirejs.config({
     text: "libs/text",
     jsx: "libs/jsx",
     JSXTransformer: "libs/JSXTransformer",
-    react: "libs/react",
+    react: "libs/react-with-addons",
 
     // core stuff
     start: "core/start",
@@ -39,7 +39,6 @@ requirejs.config({
     ImageUploader: "react_components/ImageUploader/component",
     ImageUploaderStep1: "react_components/ImageUploader/step1",
     ImageUploaderStep2: "react_components/ImageUploader/step2"
-
   },
 
   jsx: {

@@ -3,8 +3,9 @@ define([
   "brain",
   "pageHelper",
   "react",
-  "jsx!ImageList"
-], function(C, brain, pageHelper, React, ImageList) {
+  "jsx!ImageList",
+  "jsx!ImageUploader"
+], function(C, brain, pageHelper, React, ImageList, ImageUploader) {
 
   // component, register thyself
   var pageName = "imagesPage";
@@ -27,6 +28,7 @@ define([
     // set the page template
     pageHelper.renderPage({
       breadcrumbs: [{ label: "Images" }],
+      breadcrumbsRight: '<a href="#images/add" class="add-image-btn btn btn-default">Upload Image &raquo;</a>',
       pageContent: ""
     });
 
@@ -42,15 +44,14 @@ define([
 
     // set the page template
     pageHelper.renderPage({
-      breadcrumbs: [{
-        label: "Images", link: "#images"
-      }, {
-        label: "Add Image"
-      }]
+      breadcrumbs: [
+        { label: "Images", link: "#images" },
+        { label: "Add Image" }
+      ]
     });
 
     React.render(
-      <ImageList />,
+      <ImageUploader />,
       document.getElementById('pageContent')
     );
   };
