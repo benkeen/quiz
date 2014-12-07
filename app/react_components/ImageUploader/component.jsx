@@ -15,6 +15,8 @@ define([
     getInitialState: function() {
       return {
         currentStep: 1,
+
+        // not sure about this... might be better to just store the ID + rev...
         imageDoc: {
           status: "incomplete"
         },
@@ -45,18 +47,39 @@ define([
         });
       });
 
-      // create a new image
-      brain.db.createImageDoc(this.state.imageDoc, function(resp) {
-        var newState = React.addons.update(self.state, {
-          imageDoc: {
-            $merge: {
-              _id: resp.id,
-              _rev: resp.rev
+      // see if there's an image already in the process of being uploaded. If there is, use that. Otherwise, create a
+      // new one and go from there
+      var imageDoc = brain.getLocalStorage(C.OTHER.CURR_UPLOADING_IMAGE_DOC_ID);
+
+      if (imageDoc) {
+        var imageDocId = imageDoc.docId;
+        brain.db.getImageDoc(imageDocId, function(resp) {
+          var newState = React.addons.update(self.state, {
+            currentStep: { $set: imageDoc.step },
+            imageDoc: {
+              $merge: {
+                _id: resp._id,
+                _rev: resp._rev,
+                filename: resp.filename
+              }
             }
-          }
+          });
+          self.setState(newState);
         });
-        self.setState(newState);
-      });
+
+      } else {
+        brain.db.createImageDoc(this.state.imageDoc, function(resp) {
+          var newState = React.addons.update(self.state, {
+            imageDoc: {
+              $merge: {
+                _id: resp.id,
+                _rev: resp.rev
+              }
+            }
+          });
+          self.setState(newState);
+        });
+      }
 
       component.subscribe(C.EVENTS.CONTINUE, this.continue);
     },
@@ -107,7 +130,6 @@ define([
   });
 
   return Question;
-
 });
 
 

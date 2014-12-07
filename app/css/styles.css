@@ -26,6 +26,10 @@ section.body {
     border: 1px solid #999999;
     margin-bottom: 30px;
 }
+.img-wrapper img {
+    max-width: 100%;
+}
+
 
 span.twitter-typeahead .tt-dropdown-menu {
     max-height: 200px;
@@ -96,4 +100,13 @@ h1 {
     position: absolute;
     right: 15px;
     top: 52px;
+}
+
+#crop-image-modal .modal-dialog {
+    width: 95%;
+    height: 95%;
+}
+
+.modal-title {
+    border-bottom: 1px solid #eeeeee;
 }

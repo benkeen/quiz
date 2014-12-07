@@ -88,8 +88,6 @@ define([
   };
 
   var updateImageDoc = function(doc, callback) {
-    console.log("updating", doc);
-
     $.couch.db(C.DB.BIRD_IMAGES.NAME).saveDoc(doc, {
       success: function(resp) {
         callback(resp);

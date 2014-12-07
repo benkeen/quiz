@@ -4,8 +4,9 @@ define([
   "jsx!Header",
   "aboutPage",
   "jsx!questionsPage",
-  "jsx!imagesPage"
-], function(brain, generateEvents, Header, aboutPage, questionsPage, imagesPage) {
+  "jsx!imagesPage",
+  "devPage"
+], function(brain, generateEvents, Header, aboutPage, questionsPage, imagesPage, devPage) {
   "use strict";
 
   // initialize anything that needs initializing
@@ -15,4 +16,3 @@ define([
   brain.start();
 
 });
-2

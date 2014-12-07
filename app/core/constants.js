@@ -44,5 +44,10 @@ define([], function() {
     CONTINUE: 'continue'
   };
 
+
+  CONSTANTS.OTHER = {
+    CURR_UPLOADING_IMAGE_DOC_ID: 'curr-uploading-image-doc-id'
+  };
+
   return CONSTANTS;
 });

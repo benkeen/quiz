@@ -27,6 +27,8 @@ requirejs.config({
     aboutTemplate: "pages/about/aboutTemplate.html",
     questionsPage: "pages/questions/questions",
     imagesPage: "pages/images/images",
+    devPage: "pages/dev/dev",
+    devTemplate: "pages/dev/devTemplate.html",
 
     // React components
     Header: "react_components/Header",

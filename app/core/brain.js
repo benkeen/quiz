@@ -76,6 +76,15 @@ define([
   };
 
 
+  // these can be expanded on later
+  var getLocalStorage = function(key) {
+    return JSON.parse(localStorage.getItem(key));
+  };
+
+  var setLocalStorage = function(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
+
 
   // private functions
 
@@ -101,6 +110,9 @@ define([
   };
 
 
+
+
+
   // return our public API
   return {
 
@@ -110,6 +122,9 @@ define([
 
     // for use by pages and modules
     register: register,
+
+    getLocalStorage: getLocalStorage,
+    setLocalStorage: setLocalStorage,
 
     // helpers
     crossroads: crossroads,

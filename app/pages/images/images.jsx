@@ -47,7 +47,8 @@ define([
       breadcrumbs: [
         { label: "Images", link: "#images" },
         { label: "Add Image" }
-      ]
+      ],
+      breadcrumbsRight: '<button class="close" type="button">×</button>'
     });
 
     React.render(
