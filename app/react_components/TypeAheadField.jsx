@@ -44,9 +44,9 @@ define([
     shouldComponentUpdate: function(nextProps) {
 
       // bit thin! But it'll do for now
-      //if (this.props.list.length !== nextProps.list.length) {
-      //  return true;
-      //}
+//      if (this.props.list.length !== nextProps.list.length) {
+        return true;
+  //    }
     },
 
     componentDidMount: function() {

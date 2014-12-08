@@ -95,7 +95,6 @@ define([
       if (imageDocId) {
         brain.db.getImageDoc(imageDocId, function(resp) {
           var newState = React.addons.update(self.state, {
-            currentStep: { $set: imageDoc.step },
             imageDoc: {
               $merge: {
                 _id: resp._id,
@@ -106,7 +105,6 @@ define([
           });
           self.setState(newState);
         });
-
       } else {
         brain.db.createImageDoc(this.state.imageDoc, function(resp) {
           var newState = React.addons.update(self.state, {
@@ -121,15 +119,21 @@ define([
         });
       }
 
+      var currentStep = brain.getLocalStorage(C.OTHER.CURR_UPLOADING_IMAGE_STEP);
+      if (currentStep) {
+        self.setState({ currentStep: currentStep });
+      }
+
       component.subscribe(C.EVENTS.CONTINUE, this.continue);
     },
 
     // each step updates the document in place and returns the updated imageDoc
     continue: function(msg) {
+      var nextStep = this.state.currentStep + 1;
       var stateUpdates = {
-        currentStep: { $set: this.state.currentStep + 1 }
+        currentStep: { $set: nextStep }
       };
-      brain.setLocalStorage(C.OTHER.CURR_UPLOADING_IMAGE_STEP, 1);
+      brain.setLocalStorage(C.OTHER.CURR_UPLOADING_IMAGE_STEP, nextStep);
 
       if (this.state.currentStep === 1) {
         stateUpdates.imageDoc = {
@@ -162,7 +166,7 @@ define([
         step = <Step3 birdSpecies={this.state.speciesList} imageDoc={this.state.imageDoc} />;
       }
 
-      // yuck.
+      // yuuuuck
       var navClasses = { step1: [], step2: [], step3: [], step4: [] };
       navClasses["step" + this.state.currentStep].push("active");
       for (var i=1; i<=4; i++) {

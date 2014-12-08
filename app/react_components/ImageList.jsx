@@ -19,8 +19,6 @@ define([
       var xhr = new XMLHttpRequest();
       xhr.open('POST', '/upload', true);
       xhr.onload = function(resp) {
-        //console.log("resp");
-
         if (xhr.status === 200) {
           var json = JSON.parse(resp.target.response);
           //console.log("JSON: ", json);
