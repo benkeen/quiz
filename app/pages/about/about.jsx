@@ -11,13 +11,11 @@ define([
   var component = brain.register({
     name: pageName,
     type: C.COMPONENT_TYPES.PAGE,
-    init: init
+    routes: {
+      "": loadPage,
+      "about": loadPage
+    }
   });
-
-  function init() {
-    brain.crossroads.addRoute("", loadPage);
-    brain.crossroads.addRoute("about", loadPage);
-  };
 
   function loadPage() {
     component.publish(C.EVENTS.PAGE.LOAD, { page: pageName });

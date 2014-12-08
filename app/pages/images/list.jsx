@@ -10,12 +10,10 @@ define([
   var component = brain.register({
     name: pageName,
     type: C.COMPONENT_TYPES.PAGE,
-    init: function() { // TODO
-      brain.crossroads.addRoute("images", loadPage);
-    }
+    routes: { "images": loadPage }
   });
 
-  var loadPage = function(opts) {
+  function loadPage() {
     component.publish(C.EVENTS.PAGE.LOAD, { page: pageName });
 
     React.render(

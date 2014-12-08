@@ -5,17 +5,17 @@ define([
   "jsx!Breadcrumbs",
   "jsx!ImageUploaderStep1",
   "jsx!ImageUploaderStep2",
-], function(C, brain, React, Breadcrumbs, Step1, Step2) {
+  "jsx!ImageUploaderStep3"
+], function(C, brain, React, Breadcrumbs, Step1, Step2, Step3) {
 
   // component, register thyself
   var pageName = "uploadImagePage";
   var component = brain.register({
     name: pageName,
     type: C.COMPONENT_TYPES.PAGE,
-    init: function() {
-      brain.crossroads.addRoute("images/add/", addImagePage);
-    }
+    routes: { "images/add/": addImagePage }
   });
+
 
   function addImagePage() {
     component.publish(C.EVENTS.PAGE.LOAD, { page: pageName });
@@ -51,6 +51,7 @@ define([
     }
   });
 
+
   var ImageUploadSteps = React.createClass({
     getInitialState: function() {
       return {
@@ -70,6 +71,7 @@ define([
     },
 
     componentWillMount: function() {
+
       // right off the bat, get the list of species - we'll need them later on
       var self = this;
       brain.db.getSpeciesList(function(resp) {
@@ -88,10 +90,9 @@ define([
 
       // see if there's an image already in the process of being uploaded. If there is, use that. Otherwise, create a
       // new one and go from there
-      var imageDoc = brain.getLocalStorage(C.OTHER.CURR_UPLOADING_IMAGE_DOC_ID);
+      var imageDocId = brain.getLocalStorage(C.OTHER.CURR_UPLOADING_IMAGE_DOC_ID);
 
-      if (imageDoc) {
-        var imageDocId = imageDoc.docId;
+      if (imageDocId) {
         brain.db.getImageDoc(imageDocId, function(resp) {
           var newState = React.addons.update(self.state, {
             currentStep: { $set: imageDoc.step },
@@ -128,6 +129,8 @@ define([
       var stateUpdates = {
         currentStep: { $set: this.state.currentStep + 1 }
       };
+      brain.setLocalStorage(C.OTHER.CURR_UPLOADING_IMAGE_STEP, 1);
+
       if (this.state.currentStep === 1) {
         stateUpdates.imageDoc = {
           $merge: {
@@ -142,22 +145,40 @@ define([
       this.setState(newState);
     },
 
+    selectPage: function(e) {
+      e.preventDefault();
+      this.setState({
+        currentStep: $(e.target).data("step")
+      });
+    },
+
     render: function() {
       var step;
       if (this.state.currentStep === 1) {
         step = <Step1 imageDoc={this.state.imageDoc} />;
+      } else if (this.state.currentStep === 2) {
+        step = <Step2 imageDoc={this.state.imageDoc} />;
       } else {
-        step = <Step2 birdSpecies={this.state.speciesList} imageDoc={this.state.imageDoc} />;
+        step = <Step3 birdSpecies={this.state.speciesList} imageDoc={this.state.imageDoc} />;
+      }
+
+      // yuck.
+      var navClasses = { step1: [], step2: [], step3: [], step4: [] };
+      navClasses["step" + this.state.currentStep].push("active");
+      for (var i=1; i<=4; i++) {
+        if (i > this.state.currentStep) {
+          navClasses["step" + i].push("disabled");
+        }
       }
 
       return (
         <div className="row">
           <div className="col-lg-3">
-            <ul className="nav nav-pills nav-stacked">
-              <li className={this.state.currentStep === 1 ? 'active' : 'disabled'}><a href="#">1. Upload Image</a></li>
-              <li className={this.state.currentStep === 2 ? 'active' : 'disabled'}><a href="#">2. Crop Image</a></li>
-              <li className={this.state.currentStep === 3 ? 'active' : 'disabled'}><a href="#">3. Image Details</a></li>
-              <li className={this.state.currentStep === 4 ? 'active' : 'disabled'}><a href="#">4. Complete!</a></li>
+            <ul className="nav nav-pills nav-stacked" onClick={this.selectPage}>
+              <li className={navClasses.step1.join(" ")}><a href="#" data-step="1">1. Upload Image</a></li>
+              <li className={navClasses.step2.join(" ")}><a href="#" data-step="2">2. Crop Image</a></li>
+              <li className={navClasses.step3.join(" ")}><a href="#" data-step="3">3. Image Details</a></li>
+              <li className={navClasses.step4.join(" ")}><a href="#" data-step="4">4. Complete!</a></li>
             </ul>
           </div>
           <div className="col-lg-9">

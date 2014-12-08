@@ -54,9 +54,16 @@ define([
     // store the information about this component
     components[name] = $.extend(true, {
       type: null,
+      routes: {},
       subscriptions: {},
       init: function() {}
     }, component);
+
+
+    _.each(components[name].routes, function(routeFunction, route) {
+      crossroads.addRoute(route, routeFunction);
+    });
+
 
     // return a convenient API for use by whatever just registered itself (page, module)
     return {
@@ -108,8 +115,6 @@ define([
   var _subscribe = function(id, msg, callback) {
     components[id].subscriptions[msg] = callback;
   };
-
-
 
 
 

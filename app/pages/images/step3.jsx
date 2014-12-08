@@ -17,23 +17,7 @@ define([
   });
 
 
-  var Step = React.createClass({
-    getInitialState: function () {
-      return {
-        imageDocId: null,
-        imageDocRev: null
-      }
-    },
-
-    componentWillMount: function() {
-      var self = this;
-      brain.db.createNewImage(function(resp) {
-        self.setState({
-          imageDocId: resp.id,
-          imageDocRev: resp.rev
-        });
-      });
-    },
+  var Step3 = React.createClass({
 
     continue: function(e) {
       e.preventDefault();
@@ -71,43 +55,71 @@ define([
     render: function () {
       return (
         <div>
+
+          <h4>Bird</h4>
+
+          <div className="row">
+            <div className="col-lg-6">Does the image contain more than one bird?</div>
+            <div className="col-lg-6">
+              <input type="radio" name="imageSpecies" id="is1" value="yes" checked="checked" /> <label htmlFor="is1">Yes</label>
+              <input type="radio" name="imageSpecies" id="is2" value="no" /> <label htmlFor="is2">No</label>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-lg-2">Enter bird species</div>
+            <div className="col-lg-10">
+              <TypeAheadField placeholder="Enter species name" list={this.props.birdSpecies} />
+            </div>
+          </div>
+
+          <div className="row form-group">
+            <div className="col-lg-2">Sex</div>
+            <div className="col-lg-10">
+              <input type="radio" name="sex" id="s1" value="male" checked="checked" /> <label htmlFor="s1">Male</label>
+              <input type="radio" name="sex" id="s2" value="female" /> <label htmlFor="s2">Female</label>
+              <input type="radio" name="sex" id="s3" value="unknown" /> <label htmlFor="s3">Unknown</label>
+            </div>
+          </div>
+
+          <div className="row form-group">
+            <div className="col-lg-2">Age</div>
+            <div className="col-lg-10">
+              <input type="radio" name="sex" id="s1" value="male" checked="checked" /> <label htmlFor="s1">Juvenile</label>
+              <input type="radio" name="sex" id="s2" value="female" /> <label htmlFor="s2">Immature</label>
+              <input type="radio" name="sex" id="s3" value="unknown" /> <label htmlFor="s3">Adult</label>
+            </div>
+          </div>
+
+
+          <h4>PICTURE</h4>
+
+          General picture quality: 1 poor, 10 excellent   [not an aesthetic judgement: how clearly does the picture represent the bird?]
+
+          How clear is the photograph?    1 very blurry, 10 crisp
+
+          Content:      Entire bird, Head only, Other body part only
+
+          Light         Dark, mid-range, Bright
+
+          Night / Day
+
+          Other attributes (select all applicable)
+            [silhoette]
+            []
+
+          Date taken: [ ]
+
+          Location:
+
           <p>
-            Question Format: <i>single bird image</i>, <i>multiple possible responses</i>.
+            <input type="submit" className="btn btn-primary" value="Continue &raquo;" />
           </p>
 
-          <h3>Step 1</h3>
-
-          <form id="step1Form" method="post" encType="multipart/form-data" onSubmit={this.continue}>
-            <input type="hidden" name="_id" id="_id" value={this.state.imageDocId} />
-            <input type="hidden" name="_rev" id="_rev" value={this.state.imageDocRev} />
-
-            <div className="row form-group">
-              <div className="col-lg-2">Select bird species</div>
-              <div className="col-lg-10">
-                <TypeAheadField placeholder="Enter species name" list={this.props.birdSpecies} />
-              </div>
-            </div>
-
-            <div className="row form-group">
-              <div className="col-lg-2">Upload Image</div>
-              <div className="col-lg-10">
-                <div className="form-group">
-                  <input type="file" ref="fileUpload" name="_attachments" />
-                </div>
-                <div>Recommended image size:
-                  <b>1024</b> x <b>768px</b>
-                </div>
-              </div>
-            </div>
-
-            <p>
-              <input type="submit" className="btn btn-primary" value="Continue &raquo;" />
-            </p>
-          </form>
         </div>
       );
     }
   });
 
-  return Step;
+  return Step3;
 });

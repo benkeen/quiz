@@ -10,12 +10,10 @@ define([
   var component = brain.register({
     name: pageName,
     type: C.COMPONENT_TYPES.PAGE,
-    init: function() {
-      brain.crossroads.addRoute("dev", loadPage);
-    }
+    routes: { "dev": loadPage }
   });
 
-  var loadPage = function() {
+  function loadPage() {
     component.publish(C.EVENTS.PAGE.LOAD, { page: pageName });
 
     React.render(
@@ -42,7 +40,7 @@ define([
             <div className="row">
               <div className="col-lg-12">
                 <p>
-                A few methods to help out while in development.
+                  A few methods to help out while in development.
                 </p>
 
                 <ul>

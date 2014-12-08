@@ -1,10 +1,10 @@
 define([
   "constants",
   "brain",
-  "react",
-  "jsx!TypeAheadField"
-], function(C, brain, React, TypeAheadField) {
+  "react"
+], function(C, brain, React) {
 
+  var component = brain.register({ name: "ImageUploader-step1" });
 
   var Step2 = React.createClass({
 
@@ -16,8 +16,6 @@ define([
     },
 
     componentDidMount: function() {
-      //this.componentDidUpdate();
-
       var $image = $(".bootstrap-modal-cropper > img"),
         originalData = {};
 
@@ -33,6 +31,10 @@ define([
         originalData = $image.cropper("getData");
         $image.cropper("destroy");
       });
+    },
+
+    continue: function() {
+      component.publish(C.EVENTS.CONTINUE);
     },
 
     //showCroppingModal: function() {
@@ -88,12 +90,12 @@ define([
           <div className="row">
             <div className="col-lg-12">
               <p>
-                <input type="submit" className="btn btn-success" value="Continue &raquo;" />
+                <input type="button" className="btn btn-success" value="Continue &raquo;" onClick={this.continue} />
               </p>
             </div>
           </div>
 
-          <div className="modal fade" id="crop-image-modal" aria-hidden="true" aria-labelledby="bootstrap-modal-label" role="dialog" tabindex="-1">
+          <div className="modal fade" id="crop-image-modal" aria-hidden="true" aria-labelledby="bootstrap-modal-label" role="dialog" tabIndex="-1">
             <div className="modal-dialog">
               <div className="modal-body">
                 <div className="modal-content">

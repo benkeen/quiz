@@ -10,13 +10,11 @@ define([
   var component = brain.register({
     name: pageName,
     type: C.COMPONENT_TYPES.PAGE,
-    init: function() {
-      brain.crossroads.addRoute("questions", loadPage);
-    }
+    routes: { "questions": loadPage }
   });
 
 
-  var loadPage = function(opts) {
+  function loadPage() {
     publishPageLoaded();
 
     // set the page template

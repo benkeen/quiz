@@ -4,12 +4,9 @@ define([
   "react"
 ], function(C, brain, React) {
 
-  var component = brain.register({
-    name: "typeAheadField"
-  });
+  var component = brain.register({ name: "typeAheadField" });
 
   var TypeAheadField = React.createClass({
-
     propTypes: {
       list: React.PropTypes.array
     },
@@ -47,13 +44,14 @@ define([
     shouldComponentUpdate: function(nextProps) {
 
       // bit thin! But it'll do for now
-      if (this.props.list.length !== nextProps.list.length) {
-        return true;
-      }
+      //if (this.props.list.length !== nextProps.list.length) {
+      //  return true;
+      //}
     },
 
-    componentDidUpdate: function() {
+    componentDidMount: function() {
       var self = this;
+
       var typeahead = $(self.refs.typeahead.getDOMNode()).typeahead({
         minLength: self.props.minLength,
         highlight: self.props.highlight

@@ -29,10 +29,8 @@ define([
 
           // now an image has been successfully uploaded, store the image doc ID in memory in case the user refreshes
           // the page. They can come back to whatever step they're in
-          brain.setLocalStorage(C.OTHER.CURR_UPLOADING_IMAGE_DOC_ID, {
-            docId: self.props.imageDoc._id,
-            step: 2
-          });
+          brain.setLocalStorage(C.OTHER.CURR_UPLOADING_IMAGE_DOC_ID, self.props.imageDoc._id);
+          brain.setLocalStorage(C.OTHER.CURR_UPLOADING_IMAGE_STEP, 2);
 
           brain.db.updateImageDoc(self.props.imageDoc, function(resp) {
             component.publish(C.EVENTS.CONTINUE, {
