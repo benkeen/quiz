@@ -1,11 +1,10 @@
 define([
   "react",
-  "text!layoutTemplate",
   "jsx!Breadcrumbs"
-], function(React, layoutTemplate, Breadcrumbs) {
+], function(React, Breadcrumbs) {
   "use strict";
 
-  var lastTemplate = null;
+/*  var lastTemplate = null;
 
   var breadcrumbs;
 
@@ -44,9 +43,13 @@ define([
     lastTemplate = opts.template;
   };
 
+  var updatePage = function(options) {
+
+  };
 
   return {
     renderPage: renderPage
   };
+*/
 
 });

@@ -14,7 +14,7 @@ requirejs.config({
     // core stuff
     start: "core/start",
     brain: "core/brain",
-    pageHelper: "core/pageHelper",
+//    pageHelper: "core/pageHelper",
     generalEvents: "core/generalEvents",
     constants: "core/constants",
     database: "core/database",
@@ -24,23 +24,20 @@ requirejs.config({
 
     // pages
     aboutPage: "pages/about/about",
-    aboutTemplate: "pages/about/aboutTemplate.html",
     questionsPage: "pages/questions/questions",
-    imagesPage: "pages/images/images",
+    imagesPage: "pages/images/list",
+    uploadImagePage: "pages/images/upload",
+    ImageUploaderStep1: "pages/images/step1",
+    ImageUploaderStep2: "pages/images/step2",
+    ImageUploaderStep3: "pages/images/step3",
     devPage: "pages/dev/dev",
-    devTemplate: "pages/dev/devTemplate.html",
 
     // React components
     Header: "react_components/Header",
     Breadcrumbs: "react_components/Breadcrumbs",
     TypeAheadField: "react_components/TypeAheadField",
 
-    QuestionList: "react_components/QuestionList",
-
-    ImageList: "react_components/ImageList",
-    ImageUploader: "react_components/ImageUploader/component",
-    ImageUploaderStep1: "react_components/ImageUploader/step1",
-    ImageUploaderStep2: "react_components/ImageUploader/step2"
+    QuestionList: "react_components/QuestionList"
   },
 
   jsx: {

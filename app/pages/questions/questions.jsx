@@ -1,33 +1,29 @@
 define([
   "constants",
   "brain",
-  "pageHelper",
   "react",
   "jsx!QuestionList"
-], function(C, brain, pageHelper, React, QuestionList) {
+], function(C, brain, React, QuestionList) {
 
   // component, register thyself
   var pageName = "questionsPage";
   var component = brain.register({
     name: pageName,
     type: C.COMPONENT_TYPES.PAGE,
-    init: init
+    init: function() {
+      brain.crossroads.addRoute("questions", loadPage);
+    }
   });
 
 
-  function init() {
-    brain.crossroads.addRoute("questions", loadPage);
-//    brain.crossroads.addRoute("questions/add/{type}", addQuestionPage);
-  };
-
-  function loadPage(opts) {
+  var loadPage = function(opts) {
     publishPageLoaded();
 
     // set the page template
-    pageHelper.renderPage({
-      breadcrumbs: [{ label: "Questions" }],
-      pageContent: ""
-    });
+    //pageHelper.renderPage({
+    //  breadcrumbs: [{ label: "Questions" }],
+    //  pageContent: ""
+    //});
 
     React.render(
       <QuestionList />,
@@ -39,13 +35,13 @@ define([
     publishPageLoaded();
 
     // set the page template
-    pageHelper.renderPage({
-      breadcrumbs: [{
-        label: "Questions", link: "#questions"
-      }, {
-        label: "Add Question"
-      }]
-    });
+    //pageHelper.renderPage({
+    //  breadcrumbs: [{
+    //    label: "Questions", link: "#questions"
+    //  }, {
+    //    label: "Add Question"
+    //  }]
+    //});
 
     React.render(
       <MultipleChoiceQuestion />,
@@ -56,7 +52,6 @@ define([
   function publishPageLoaded() {
     component.publish(C.EVENTS.PAGE.LOAD, { page: pageName });
   };
-
 
 
 /*  var QuestionTable = React.createClass({

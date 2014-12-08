@@ -2,16 +2,56 @@ define([
   "constants",
   "brain",
   "react",
+  "jsx!Breadcrumbs",
   "jsx!ImageUploaderStep1",
-  "jsx!ImageUploaderStep2"
-], function(C, brain, React, Step1, Step2) {
+  "jsx!ImageUploaderStep2",
+], function(C, brain, React, Breadcrumbs, Step1, Step2) {
 
+  // component, register thyself
+  var pageName = "uploadImagePage";
   var component = brain.register({
-    name: "QuestionType_multipleChoice"
+    name: pageName,
+    type: C.COMPONENT_TYPES.PAGE,
+    init: function() {
+      brain.crossroads.addRoute("images/add/", addImagePage);
+    }
   });
 
+  function addImagePage() {
+    component.publish(C.EVENTS.PAGE.LOAD, { page: pageName });
 
-  var Question = React.createClass({
+    React.render(
+      <ImageUploadPage />,
+      document.getElementById('content')
+    );
+  };
+
+  var ImageUploadPage = React.createClass({
+    getInitialState: function () {
+      return {
+        breadcrumbs: [
+          { label: "Images", link: "#images" },
+          { label: "Add Image" }
+        ],
+        breadcrumbsRight: '<button class="close" type="button">×</button>'
+      };
+    },
+
+    render: function () {
+      return (
+        <div>
+          <div id="breadcrumbs">
+            <Breadcrumbs breadcrumbs={this.state.breadcrumbs} />
+          </div>
+          <div id="pageContent">
+            <ImageUploadSteps />
+          </div>
+        </div>
+      );
+    }
+  });
+
+  var ImageUploadSteps = React.createClass({
     getInitialState: function() {
       return {
         currentStep: 1,
@@ -30,7 +70,6 @@ define([
     },
 
     componentWillMount: function() {
-
       // right off the bat, get the list of species - we'll need them later on
       var self = this;
       brain.db.getSpeciesList(function(resp) {
@@ -129,25 +168,4 @@ define([
     }
   });
 
-  return Question;
 });
-
-
-/*
-
-1. Upload image
-2. Resize / Trim image
-3. Provide details about the image:
-      - Species
-      - Picture quality
-      - Ease of identification (1-5)
-      - Lighting (good, bad, adequate)
-      - Time of the year
-      - Country
-      - Location taken
-
-      Arbitrary data
-      - Silhouette
-      - Distance shot
-
- */

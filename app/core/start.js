@@ -2,11 +2,12 @@ define([
   "brain",
   "generalEvents",
   "jsx!Header",
-  "aboutPage",
+  "jsx!aboutPage",
   "jsx!questionsPage",
   "jsx!imagesPage",
-  "devPage"
-], function(brain, generateEvents, Header, aboutPage, questionsPage, imagesPage, devPage) {
+  "jsx!uploadImagePage",
+  "jsx!devPage"
+], function(brain) {
   "use strict";
 
   // initialize anything that needs initializing

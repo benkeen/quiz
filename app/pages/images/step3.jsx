@@ -1,5 +1,5 @@
 define([
-  "../../core/constants",
+  "constants",
   "brain",
   "react",
   "jsx!TypeAheadField"

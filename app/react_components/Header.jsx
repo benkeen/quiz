@@ -44,12 +44,15 @@ define([
 
       // well this is sure ugly. Need to figure out if there's an appropriate way to parse the subDOM of the React
       // component
-      if (lastPage !== "") {
+      if (lastPage !== "" && this.refs[lastPage + "Link"]) {
         var previousPageEl = this.refs[lastPage + "Link"].getDOMNode();
         $(previousPageEl).removeClass("active");
       }
-      var newPageEl = this.refs[this.state.page + "Link"].getDOMNode();
-      $(newPageEl).addClass("active");
+
+      if (this.refs[this.state.page + "Link"]) {
+        var newPageEl = this.refs[this.state.page + "Link"].getDOMNode();
+        $(newPageEl).addClass("active");
+      }
 
       this.state.previousPage = lastPage;
     },
